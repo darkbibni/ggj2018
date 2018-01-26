@@ -26,12 +26,8 @@ public class PlayerInputManager : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if(moveX != 0.0f){
-            SkillMove.MoveX(moveX);
-        }   
-
-        if(moveY != 0.0f){
-            SkillMove.MoveY(moveY);
+        if(moveX != 0.0f || moveY != 0.0f){
+            SkillMove.Move(moveX, moveY);
         }
     }
     void Update()
