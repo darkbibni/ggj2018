@@ -17,14 +17,14 @@ labels:
 - Xbox360
 - XInput
 - DirectInput
-timeCreated: 1516998704
+timeCreated: 1516999218
 licenseType: Free
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
   iconMap: {}
   executionOrder:
-    Rewired.Internal.OnGUIHelper: -32000
+    Rewired.Internal.OnGUIHelper: -31900
   isPreloaded: 0
   isOverridable: 0
   platformData:
