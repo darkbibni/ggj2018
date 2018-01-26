@@ -1,0 +1,23 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExitBahaviour : MonoBehaviour {
+
+    public ArenaManager arenaMgr;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // TODO get player component.
+        // other.GetComponent<>()
+
+        // Get player and check if he has no abilities.
+        if (true)
+        {
+            // TODO get player index.
+
+            int winnerIndex = 0;
+            arenaMgr.TriggerWin(winnerIndex);
+        }
+    }
+}
