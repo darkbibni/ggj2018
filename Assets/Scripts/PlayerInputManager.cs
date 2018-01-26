@@ -5,9 +5,8 @@ using Rewired;
 
 public class PlayerInputManager : MonoBehaviour {
 
-    public int playerId = 0;
+    public int playerId = 1;
     private Player _player;
-    private Rigidbody _rb;
 
     private CharacterMovement SkillMove;
 
@@ -16,20 +15,30 @@ public class PlayerInputManager : MonoBehaviour {
     private List<Skill> SkillX = new List<Skill>();
     private List<Skill> SkillY = new List<Skill>();
 
+    private float moveX = 0.0f;
+    private float moveY = 0.0f;
+
     void Awake()
     {
+        SkillMove = GetComponent<CharacterMovement>();
         _player = ReInput.players.GetPlayer(playerId);
     }
 
+    void FixedUpdate()
+    {
+        if(moveX != 0.0f){
+            SkillMove.MoveX(moveX);
+        }   
+
+        if(moveY != 0.0f){
+            SkillMove.MoveY(moveY);
+        }
+    }
     void Update()
     {
-        if(_player.GetAxis("Horizontal") != 0.0f) {
-            SkillMove.MoveX(_player.GetAxis("Horizontal"));
-        }
+        moveX = _player.GetAxis("Horizontal");
 
-        if(_player.GetAxis("Vertical") != 0.0f) {
-            SkillMove.MoveY(_player.GetAxis("Vertical"));
-        }
+        moveY = _player.GetAxis("Vertical");
 
         if(_player.GetButtonDown("A")){
             foreach(Skill s in SkillA){
