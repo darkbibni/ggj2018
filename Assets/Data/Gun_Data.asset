@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7336f82bae00b3547afd6a755b6b2059, type: 3}
   m_Name: Gun_Data
   m_EditorClassIdentifier: 
-  objectName: New MyScriptableObject
-  colorIsRandom: 0
-  thisColor: {r: 1, g: 1, b: 1, a: 1}
-  spawnPoints: []
+  sprite: {fileID: 0}
+  Gun_ProjectilePrefab: {fileID: 1233574093258004, guid: 2d259066daab1134f8727b0a7621fd57,
+    type: 2}
+  speed: 20

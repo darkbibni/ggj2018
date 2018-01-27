@@ -22,7 +22,7 @@ public class Gun_Skill : Skill
         bullet.GetComponent<Rigidbody>().velocity = transform.forward * data.speed;
     }
 
-    public override void Init(){
-        
+    public override void Init(PlayerController pc){
+
     }
 }
