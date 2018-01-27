@@ -27,7 +27,7 @@ public class Gun_Skill : Skill
     }
 
     public override void Init(PlayerController pc){
-        playerController = pc;
+        caster = pc;
         data = SkillManager.instance.gun_data;
         cooldown = data.cooldown;
     }
@@ -37,7 +37,7 @@ public class Gun_Skill : Skill
         if (!isTransmitted)
         {
             isTransmitted = true;
-            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+            caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
             Destroy(this);
         }
     }

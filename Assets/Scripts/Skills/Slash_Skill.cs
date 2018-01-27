@@ -9,7 +9,7 @@ public class Slash_Skill : Skill {
 	GameObject instanceSlash;
 
 	public override void Init(PlayerController pc){
-		playerController = pc;
+		caster = pc;
 		data = SkillManager.instance.slash_data;
 		eButton = data.eButton;
 		instanceSlash = Instantiate(data.SlashGameObject);
@@ -40,7 +40,7 @@ public class Slash_Skill : Skill {
 		if(isActive && other.tag == "Player" && other.transform != transform && !isTransmitted){
 			isTransmitted = true;
 			PlayerController enemy = other.GetComponent<PlayerController>();
-            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+            caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
             Destroy(this);
 		}
     }

@@ -12,7 +12,7 @@ public class Missile_Skill : Skill {
 	Collider PlayerCollider;
 
 	public override void Init(PlayerController pc){
-		playerController = pc;
+		caster = pc;
         playerModel = transform.GetChild(0).gameObject;
 		PlayerCollider = GetComponent<Collider>();
 		data = SkillManager.instance.missile_data;
@@ -35,7 +35,7 @@ public class Missile_Skill : Skill {
 	void ShowPlayer(bool value){
 		PlayerCollider.enabled = value;
         playerModel.gameObject.SetActive(value);
-		playerController.ShowTrails(value);
+		caster.ShowTrails(value);
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -51,7 +51,7 @@ public class Missile_Skill : Skill {
 			instanceMissile.SetActive(false);
 			PlayerController enemy = other.GetComponent<PlayerController>();
             enemy.SkillMove.Stun(2.0f);
-            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+            caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
             Destroy(this);
 		}
 

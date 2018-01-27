@@ -12,7 +12,7 @@ public class CharacterMovement : MonoBehaviour {
     public GameObject StunBall;
     public ParticleSystem DashParticles;
     private Rigidbody _rb;
-    private BoxCollider _collider;
+    private Collider _collider;
     private ParticleSystem.EmissionModule _emission;
 
     private bool isDashing = false;
@@ -23,7 +23,7 @@ public class CharacterMovement : MonoBehaviour {
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _collider = GetComponent<BoxCollider>();
+        _collider = GetComponent<Collider>();
         _emission = DashParticles.emission;
     }
 

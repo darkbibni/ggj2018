@@ -89,6 +89,11 @@ public class UiManager : MonoBehaviour {
         playerSkillsUI[playerId].PressMainSkill(skillId);
     }
 
+    public void FeedbackCooldown(int playerId, int skillId, float cooldown)
+    {
+        playerSkillsUI[playerId].TriggerCooldown(skillId, cooldown);
+    }
+
     public void AddSkillFeedback(int playerId, int skillId)
     {
 

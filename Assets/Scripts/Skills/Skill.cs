@@ -13,7 +13,7 @@ public abstract class Skill : MonoBehaviour {
 
     public SkillButton eButton;
 
-    protected PlayerController playerController;
+    protected PlayerController caster;
     protected float cooldown = 0;
     protected bool isActive = false;
     protected bool isTransmitted = false;
@@ -33,7 +33,10 @@ public abstract class Skill : MonoBehaviour {
 
         skillsToRemove = _skillsToRemove;
 
-        // TODO update an UI.
+        if(GameManager.instance != null)
+        {
+            GameManager.instance.uiMgr.FeedbackCooldown(caster.playerId, (int) eButton, cooldown);
+        }
 
         Invoke("CooldownFinished", cooldown);
     }

@@ -9,7 +9,7 @@ public class Stomp_Skill : Skill {
 	GameObject instanceStomp;
 
 	public override void Init(PlayerController pc){
-		playerController = pc;
+		caster = pc;
 		data = SkillManager.instance.stomp_data;
 		eButton = data.eButton;
 		instanceStomp = Instantiate(data.StompGameObject);
@@ -41,7 +41,7 @@ public class Stomp_Skill : Skill {
         if (isActive && other.tag == "Player" && other.transform != transform && !isTransmitted){
 			isTransmitted = true;
 			PlayerController enemy = other.GetComponent<PlayerController>();
-            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+            caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
             Destroy(this);
 		}
 	}
