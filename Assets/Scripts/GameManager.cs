@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
     
     public static GameManager instance;
 
+    
+
     public GameStates GameState
     {
         get { return gameState; }
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour {
     private GameStates gameState;
 
     public ArenaManager arenaMgr;
+    public UiManager uiMgr;
 
     private void Awake()
     {
@@ -42,12 +45,22 @@ public class GameManager : MonoBehaviour {
         
         bool join = arenaMgr.AddPlayer(playerIndex);
 
+        if(join)
+        {
+            uiMgr.SetPlayerReady(playerIndex, true);
+        }
+
         return join;
     }
 
     public bool QuitFight(int playerIndex)
     {
         bool quit = arenaMgr.RemovePlayer(playerIndex);
+
+        if (quit)
+        {
+            uiMgr.SetPlayerReady(playerIndex, false);
+        }
 
         return quit;
     }
@@ -63,6 +76,8 @@ public class GameManager : MonoBehaviour {
             // TODO COROUTINE ! TRANSITION --> countdown 3 2 1 GO !
             arenaMgr.SpawnCharacters();
 
+            uiMgr.DisplayFightPanel();
+
             return true;
         }
 
@@ -73,6 +88,8 @@ public class GameManager : MonoBehaviour {
     {
         gameState = GameStates.SETUP;
         arenaMgr.ResetArena();
+
+        uiMgr.DisplaySetupPanel();
     }
 
     public void StopFight()

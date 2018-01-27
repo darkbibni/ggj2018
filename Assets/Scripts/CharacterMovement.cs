@@ -35,7 +35,11 @@ public class CharacterMovement : MonoBehaviour {
             if(Physics.Raycast(transform.position, transform.forward, out hit, DashLength)){
                 target = Vector3.Lerp(transform.position, hit.point, 0.75f);
             }
-            _rb.DOMove(target, DashTime).OnComplete(()=>{ isDashing = false; });
+
+            _rb.DOMove(target, DashTime).OnComplete(()=>{
+                isDashing = false;
+                _rb.velocity = Vector3.zero;
+            });
         }
     }
 

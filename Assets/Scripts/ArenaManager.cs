@@ -85,12 +85,12 @@ public class ArenaManager : MonoBehaviour
     {
         for (int i = 0; i < spawns.Length; i++)
         {
-            GameObject character = Instantiate(characterPrefab, spawns[i].transform.position, Quaternion.identity, charactersParent);
+            GameObject character = Instantiate(characterPrefab, spawns[i].transform.position + Vector3.up * characterPrefab.transform.position.y, Quaternion.identity, charactersParent);
             
             // Orientate to exit.
             character.transform.LookAt(Vector3.zero);
 
-            PlayerInputManager playerInput = character.GetComponent<PlayerInputManager>();
+            PlayerController playerInput = character.GetComponent<PlayerController>();
             playerInput.SetupPlayer(i);
         }
     }

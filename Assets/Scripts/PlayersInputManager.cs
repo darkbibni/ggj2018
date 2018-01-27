@@ -10,8 +10,7 @@ using UnityEngine;
 public class PlayersInputManager : MonoBehaviour {
 
     // TODO Feedback UI !!
-    public GameObject ui;
-
+    
     private void Update()
     {
         switch(GameManager.instance.GameState)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitBahaviour : MonoBehaviour {
+public class ExitBehaviour : MonoBehaviour {
 
     public ArenaManager arenaMgr;
 

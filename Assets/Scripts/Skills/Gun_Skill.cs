@@ -16,4 +16,8 @@ public class Gun_Skill : Skill
     {
         
     }
+
+    public override void Init(){
+        
+    }
 }
