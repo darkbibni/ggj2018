@@ -6,18 +6,18 @@ public class Gun_Projectile : MonoBehaviour {
 
     public Gun_Skill skill;
 
-    private PlayerInputManager caster;
+    private PlayerController caster;
 
     private void Awake()
     {
-        caster = skill.gameObject.GetComponent<PlayerInputManager>();
+        caster = skill.gameObject.GetComponent<PlayerController>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            PlayerInputManager otherPlayer = other.GetComponent<PlayerInputManager>();
+            PlayerController otherPlayer = other.GetComponent<PlayerController>();
 
             if (caster.playerId == otherPlayer.playerId)
             {
