@@ -1001,6 +1001,11 @@ Prefab:
       propertyPath: slash
       value: 
       objectReference: {fileID: 1014071544}
+    - target: {fileID: 114237115672666904, guid: 87812887c3d64804786ee5efd26919b0,
+        type: 2}
+      propertyPath: playerId
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 87812887c3d64804786ee5efd26919b0, type: 2}
   m_IsPrefabParent: 0
@@ -1025,6 +1030,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03d0cfb1a7502a444a94c6580476a44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
+  cooldown: 0
   SlashGameObject: {fileID: 1742274184}
   Amplitude: 120
   HitSpeed: 0.3

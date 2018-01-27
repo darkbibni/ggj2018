@@ -5,7 +5,7 @@ using Rewired;
 
 public class PlayerInputManager : MonoBehaviour {
 
-    private int playerId = 1;
+    public int playerId = 1;
     private Player _player = null;
 
     private CharacterMovement SkillMove;
@@ -21,6 +21,7 @@ public class PlayerInputManager : MonoBehaviour {
     void Awake()
     {
         SkillMove = GetComponent<CharacterMovement>();
+        SetupPlayer(playerId);
     }
 
     void FixedUpdate()
@@ -43,10 +44,14 @@ public class PlayerInputManager : MonoBehaviour {
             return;
         }
 
+        /*
         if(GameManager.instance.GameState == GameStates.FIGHT)
         {
             HandleFightInput();
         }
+        */
+
+        HandleFightInput();
     }
 
     private void HandleFightInput()
