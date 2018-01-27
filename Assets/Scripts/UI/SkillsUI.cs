@@ -71,7 +71,7 @@ public class SkillsUI : MonoBehaviour {
 
         currentSkillImgs[inputId].fillAmount = 0f;
 
-        cooldownTweens[inputId] = currentSkillImgs[inputId].DOFillAmount(1f, cooldown).SetEase(Ease.Linear);
+        cooldownTweens[inputId] = currentSkillImgs[inputId].DOFillAmount(1f, cooldown).SetEase(Ease.Linear).OnComplete(() => Debug.Log("UI Finished"));
     }
 
     public void UpdateCurrentAndNext(int skillId, bool currentEnable, bool nextEnable)

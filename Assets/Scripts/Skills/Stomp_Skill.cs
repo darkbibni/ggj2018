@@ -19,8 +19,7 @@ public class Stomp_Skill : Skill {
 	}
 	public override void Execute(List<Skill> _skillsToRemove)
     {
-
-        if (inCooldown || isActive)
+        if (isActive)
         {
             return;
         }
