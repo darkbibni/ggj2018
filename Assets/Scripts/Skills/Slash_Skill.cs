@@ -17,16 +17,16 @@ public class Slash_Skill : Skill {
 		instanceSlash.transform.localPosition = Vector3.zero;
 		instanceSlash.transform.localRotation =  Quaternion.Euler(Vector3.zero);
 	}
-	public override void Execute(){
+	public override void Execute(List<Skill> _skillsToRemove)
+    {
 
         if (inCooldown || isActive)
         {
             return;
         }
 
-        base.Execute();
+        base.Execute(_skillsToRemove);
 
-        isActive = true;
 		instanceSlash.transform.localRotation = Quaternion.Euler(0f, (data.Amplitude/2), 0f);
 		instanceSlash.SetActive(true);
 		instanceSlash.transform.DOLocalRotate(new Vector3(0f, -(data.Amplitude/2f), 0f), data.HitSpeed).OnComplete(()=>{
@@ -37,16 +37,15 @@ public class Slash_Skill : Skill {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(gameObject.activeSelf && other.tag == "Player" && other.transform != transform && !isTransmitted){
+		if(isActive && other.tag == "Player" && other.transform != transform && !isTransmitted){
 			isTransmitted = true;
-			PlayerController pc = other.GetComponent<PlayerController>();
-			pc.AddSkill(this);
-			playerController.RemoveSkill(this, eButton);
-			Destroy(this);
+			PlayerController enemy = other.GetComponent<PlayerController>();
+            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+            Destroy(this);
 		}
-	}
+    }
 
-	void OnDestroy()
+    void OnDestroy()
 	{
 		Destroy(instanceSlash);
 	}

@@ -6,19 +6,18 @@ using UnityEditor;
 public class Gun_Skill : Skill
 {
     private Gun_Data data;
-    private List<GameObject> bullets = new List<GameObject>();
+    private GameObject bullet;
     
-    public override void Execute()
+    public override void Execute(List<Skill> _skillsToRemove)
     {
         if (inCooldown || isActive)
         {
             return;
         }
 
-        base.Execute();
+        base.Execute(_skillsToRemove);
 
-        GameObject bullet = Instantiate(data.Gun_ProjectilePrefab);
-        bullets.Add(bullet);
+        bullet = Instantiate(data.Gun_ProjectilePrefab);
         bullet.transform.position = transform.position;
         bullet.transform.eulerAngles = new Vector3(90, transform.eulerAngles.y, 0);
         
@@ -28,7 +27,24 @@ public class Gun_Skill : Skill
     }
 
     public override void Init(PlayerController pc){
+        playerController = pc;
         data = SkillManager.instance.gun_data;
         cooldown = data.cooldown;
+    }
+
+    public void EnemyTouched(PlayerController enemy)
+    {
+        if (!isTransmitted)
+        {
+            isTransmitted = true;
+            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+            Destroy(this);
+        }
+    }
+
+    public override void HasBeenTransmitted()
+    {
+        Destroy(bullet);
+        Destroy(this);
     }
 }

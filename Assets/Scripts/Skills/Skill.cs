@@ -18,9 +18,10 @@ public abstract class Skill : MonoBehaviour {
     protected bool isActive = false;
     protected bool isTransmitted = false;
     protected bool inCooldown = false;
+    protected List<Skill> skillsToRemove;
 
     public abstract void Init(PlayerController pc);
-    public virtual void Execute()
+    public virtual void Execute(List<Skill> _skillsToRemove)
     {
         if(inCooldown || isActive)
         {
@@ -29,6 +30,8 @@ public abstract class Skill : MonoBehaviour {
 
         isActive = true;
         inCooldown = true;
+
+        skillsToRemove = _skillsToRemove;
 
         // TODO update an UI.
 
@@ -43,5 +46,11 @@ public abstract class Skill : MonoBehaviour {
     public void End()
     {
         isActive = false;
+    }
+
+    public virtual void HasBeenTransmitted()
+    {
+        isTransmitted = true;
+        Destroy(this);
     }
 }
