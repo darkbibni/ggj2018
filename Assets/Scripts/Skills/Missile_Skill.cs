@@ -6,7 +6,6 @@ using DG.Tweening;
 public class Missile_Skill : Skill {
 
 	private Missile_Data data;
-	private bool transmitted = false;
 	GameObject instanceMissile;
 	GameObject playerModel;
 	Collider PlayerCollider;
@@ -25,11 +24,15 @@ public class Missile_Skill : Skill {
 
 	public override void Execute(List<Skill> _skillsToRemove)
     {
-		if(!isActive){
-			ShowPlayer(false);
-			instanceMissile.SetActive(true);
-			isActive = true;
-		}
+        if (inCooldown || isActive)
+        {
+            return;
+        }
+
+        base.Execute(_skillsToRemove);
+
+		ShowPlayer(false);
+		instanceMissile.SetActive(true);
 	}
 
 	void ShowPlayer(bool value){
@@ -42,11 +45,12 @@ public class Missile_Skill : Skill {
 	{
         if(other.tag == "Ground" || other.tag == "Exit")
         {
+            End();
             return;
         }
 
-		if(gameObject.activeSelf && other.tag == "Player" && other.transform != transform && !transmitted){
-			transmitted = true;
+		if(gameObject.activeSelf && other.tag == "Player" && other.transform != transform && !isTransmitted){
+			isTransmitted = true;
 			ShowPlayer(true);
 			instanceMissile.SetActive(false);
 			PlayerController enemy = other.GetComponent<PlayerController>();
@@ -58,8 +62,8 @@ public class Missile_Skill : Skill {
         else {
 			ShowPlayer(true);
 			instanceMissile.SetActive(false);
-			isActive = false;
-		}
+            End();
+        }
 	}
 
 	void OnDestroy()

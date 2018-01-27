@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour {
     void Awake()
     {
         SkillMove = GetComponent<CharacterMovement>();
+
+        if(GameManager.instance == null)
+        {
+            _player = ReInput.players.GetPlayer(playerId);
+        }
     }
 
     public void ShowTrails(bool value){
@@ -91,7 +96,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if (UseSkillList(ref SkillA))
                 {
-                    GameManager.instance.uiMgr.UseSkill(playerId, 0);
+                    //GameManager.instance.uiMgr.UseSkill(playerId, 0);
                 }
             }
 
@@ -99,7 +104,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if (UseSkillList(ref SkillB))
                 {
-                    GameManager.instance.uiMgr.UseSkill(playerId, 1);
+                    //GameManager.instance.uiMgr.UseSkill(playerId, 1);
                 }
             }
 
@@ -107,7 +112,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if (UseSkillList(ref SkillX))
                 {
-                    GameManager.instance.uiMgr.UseSkill(playerId, 2);
+                    //GameManager.instance.uiMgr.UseSkill(playerId, 2);
                 }
             }
 
@@ -115,7 +120,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if(UseSkillList(ref SkillY))
                 {
-                    GameManager.instance.uiMgr.UseSkill(playerId, 3);
+                    //GameManager.instance.uiMgr.UseSkill(playerId, 3);
                 }
                 
             }
