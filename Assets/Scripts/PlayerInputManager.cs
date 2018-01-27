@@ -5,7 +5,7 @@ using Rewired;
 
 public class PlayerInputManager : MonoBehaviour {
 
-    private int playerId = 1;
+    public int playerId = 1;
     private Player _player = null;
 
     private CharacterMovement SkillMove;
