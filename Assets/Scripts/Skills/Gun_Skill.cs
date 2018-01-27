@@ -17,7 +17,7 @@ public class Gun_Skill : Skill
         
     }
 
-    public override void Init(){
-        
+    public override void Init(PlayerController pc){
+
     }
 }
