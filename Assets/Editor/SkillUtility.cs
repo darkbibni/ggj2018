@@ -10,4 +10,10 @@ public class SkillUtility : MonoBehaviour {
     {
         ScriptableObjectUtility.CreateAsset<Gun_Data>("/Data", "Gun_Data");
     }
+
+    [MenuItem("Assets/Create/ScriptableObjects/Slash_Data")]
+    public static void CreateSlashDataAsset()
+    {
+        ScriptableObjectUtility.CreateAsset<Slash_Data>("/Data", "Slash_Data");
+    }
 }

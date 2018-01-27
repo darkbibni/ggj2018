@@ -90,7 +90,7 @@ public class ArenaManager : MonoBehaviour
             // Orientate to exit.
             character.transform.LookAt(Vector3.zero);
 
-            PlayerInputManager playerInput = character.GetComponent<PlayerInputManager>();
+            PlayerController playerInput = character.GetComponent<PlayerController>();
             playerInput.SetupPlayer(i);
         }
     }
