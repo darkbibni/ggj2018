@@ -35,6 +35,14 @@ public class UiManager : MonoBehaviour {
     {
     }
 
+    public void ResetUI()
+    {
+        foreach(SkillsUI ui in playerSkillsUI)
+        {
+            ui.ResetSkillUi();
+        }
+    }
+
     public void SetPlayerReady(int playerId, bool ready)
     {
         playerFeedbacks[playerId].sprite = ready ? leaveSprite : joinSprite;

@@ -74,10 +74,12 @@ public class GameManager : MonoBehaviour {
 
             arenaMgr.SetupSpawns();
 
+            uiMgr.DisplayFightPanel(arenaMgr.PlayerCount);
+
             // TODO COROUTINE ! TRANSITION --> countdown 3 2 1 GO !
             arenaMgr.SpawnCharacters();
 
-            uiMgr.DisplayFightPanel(arenaMgr.PlayerCount);
+            
 
             return true;
         }
@@ -90,7 +92,9 @@ public class GameManager : MonoBehaviour {
         gameState = GameStates.SETUP;
         arenaMgr.ResetArena();
 
+        uiMgr.ResetUI();
         uiMgr.DisplaySetupPanel();
+
     }
 
     public void StopFight(int winnerIndex)
