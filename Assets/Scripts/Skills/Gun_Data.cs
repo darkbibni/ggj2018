@@ -5,8 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Gun_Data : ScriptableObject
 {
-    public string objectName = "New MyScriptableObject";
-    public bool colorIsRandom = false;
-    public Color thisColor = Color.white;
-    public Vector3[] spawnPoints;
+    public Sprite sprite;
+    public GameObject Gun_ProjectilePrefab;
+    public float speed;
 }

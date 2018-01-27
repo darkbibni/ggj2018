@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour {
     public int playerId = 0;
     private Player _player = null;
 
-    private CharacterMovement SkillMove;
+    [HideInInspector]
+    public CharacterMovement SkillMove;
 
     private List<Skill> SkillA = new List<Skill>();
     private List<Skill> SkillB = new List<Skill>();
@@ -17,6 +18,13 @@ public class PlayerController : MonoBehaviour {
 
     private float moveX = 0.0f;
     private float moveY = 0.0f;
+
+    public bool IsEmpty {
+        get
+        {
+            return SkillA.Count == 0 && SkillB.Count == 0 && SkillX.Count == 0 && SkillY.Count == 0;
+        }
+    }
 
     void Awake()
     {
@@ -44,14 +52,18 @@ public class PlayerController : MonoBehaviour {
             return;
         }
         
-        /*
-        if(GameManager.instance.GameState == GameStates.FIGHT)
+        if(GameManager.instance != null)
+        {
+            if (GameManager.instance.GameState == GameStates.FIGHT)
+            {
+                HandleFightInput();
+            }
+        } 
+
+        else
         {
             HandleFightInput();
         }
-        */
-
-        HandleFightInput();
     }
 
     private void HandleFightInput()
@@ -101,7 +113,7 @@ public class PlayerController : MonoBehaviour {
 
     public void AddSkill(Skill s){
         Skill sloc = (Skill)gameObject.AddComponent(s.GetType());
-        sloc.Init();
+        sloc.Init(this);
         switch(sloc.eButton){
             case SkillButton.A : 
                 SkillA.Add(sloc);
@@ -114,6 +126,24 @@ public class PlayerController : MonoBehaviour {
                 break;
             case SkillButton.Y : 
                 SkillY.Add(sloc);
+                break;
+        }
+    }
+
+    public void RemoveSkill(Skill s, SkillButton sb)
+    {
+        switch(sb){
+            case SkillButton.A : 
+                SkillA.Remove(s);
+                break;
+            case SkillButton.B : 
+                SkillB.Remove(s);
+                break;
+            case SkillButton.X : 
+                SkillX.Remove(s);
+                break;
+            case SkillButton.Y : 
+                SkillY.Remove(s);
                 break;
         }
     }
