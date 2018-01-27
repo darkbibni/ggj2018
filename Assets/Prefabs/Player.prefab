@@ -602,6 +602,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 0
   SkillMove: {fileID: 0}
+  TrailList:
+  - {fileID: 1980606478528444}
+  - {fileID: 1863107809716924}
+  - {fileID: 1706053715336424}
 --- !u!114 &114266658051801174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -613,7 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950719a5bb6d06b4f8f4f814c5ec203b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
 --- !u!114 &114390120337166052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -738,7 +742,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1160135311
+  randomSeed: 484745707
   InitialModule:
     serializedVersion: 3
     enabled: 1

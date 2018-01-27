@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector]
     public CharacterMovement SkillMove;
 
+    public List<GameObject> TrailList = new List<GameObject>();
+
     private List<Skill> SkillA = new List<Skill>();
     private List<Skill> SkillB = new List<Skill>();
     private List<Skill> SkillX = new List<Skill>();
@@ -30,6 +32,12 @@ public class PlayerController : MonoBehaviour {
     {
         SkillMove = GetComponent<CharacterMovement>();
         SetupPlayer(playerId);
+    }
+
+    public void ShowTrails(bool value){
+        foreach(GameObject go in TrailList){
+            go.SetActive(value);
+        }
     }
 
     void FixedUpdate()

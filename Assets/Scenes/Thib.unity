@@ -851,6 +851,12 @@ Prefab:
       value: 
       objectReference: {fileID: 11400000, guid: 6feaf7c9d4b675046a368a9d44ea1f7d,
         type: 2}
+    - target: {fileID: 114616356882733852, guid: 2cb39473134a14943b05acbc598b3ae3,
+        type: 2}
+      propertyPath: missile_data
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ff41bd5c5f9d524ab62ecde99af3579,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2cb39473134a14943b05acbc598b3ae3, type: 2}
   m_IsPrefabParent: 0
