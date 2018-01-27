@@ -22,4 +22,10 @@ public class SkillUtility : MonoBehaviour {
     {
         ScriptableObjectUtility.CreateAsset<Stomp_Data>();
     }
+
+    [MenuItem("Assets/Create/ScriptableObjects/Missile_Data")]
+    public static void CreateMissileDataAsset()
+    {
+        ScriptableObjectUtility.CreateAsset<Missile_Data>();
+    }
 }

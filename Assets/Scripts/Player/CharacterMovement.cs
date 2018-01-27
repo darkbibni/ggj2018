@@ -18,6 +18,8 @@ public class CharacterMovement : MonoBehaviour {
     private bool isDashing = false;
     private bool isStun = false;
 
+    private bool isMissile = false;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -30,6 +32,8 @@ public class CharacterMovement : MonoBehaviour {
             _rb.MovePosition(_rb.position + (x * Vector3.right * MoveSpeed/1000f) + (y * Vector3.forward * MoveSpeed/1000f));
             _rb.MoveRotation(Quaternion.LookRotation(new Vector3(x, 0f, y)));
         }
+
+        //make missile locomotion
     }
 
     public void Dash(){

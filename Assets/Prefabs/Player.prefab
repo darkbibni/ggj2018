@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 54372404528812724}
   - component: {fileID: 114237115672666904}
   - component: {fileID: 114390120337166052}
+  - component: {fileID: 114266658051801174}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -601,7 +602,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 0
   SkillMove: {fileID: 0}
-  uiMgr: {fileID: 0}
+  TrailList:
+  - {fileID: 1980606478528444}
+  - {fileID: 1863107809716924}
+  - {fileID: 1706053715336424}
+--- !u!114 &114266658051801174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030711296124664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 950719a5bb6d06b4f8f4f814c5ec203b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
 --- !u!114 &114390120337166052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -614,8 +630,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 200
-  DashLength: 4
-  DashTime: 0.1
+  DashLength: 3
+  DashTime: 0.2
   StunBall: {fileID: 1885310702280300}
   DashParticles: {fileID: 198873467744110052}
 --- !u!114 &114655876140075908
@@ -726,7 +742,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1160135311
+  randomSeed: 484745707
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum testType{
-	Stomp, Slash, Gun
+	Stomp, Slash, Missile
 }
 
 public class WeaponTest : MonoBehaviour {
@@ -18,7 +18,7 @@ public class WeaponTest : MonoBehaviour {
 			break;
 			case testType.Slash : pc.AddSkill(new Slash_Skill());
 			break;
-			case testType.Gun : pc.AddSkill(new Gun_Skill());
+			case testType.Missile : pc.AddSkill(new Missile_Skill());
 			break;
 		}
 	}
