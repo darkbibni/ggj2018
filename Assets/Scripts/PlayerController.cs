@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 
-public class PlayerInputManager : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
-    private int playerId = 1;
+    private int playerId = 0;
     private Player _player = null;
 
     private CharacterMovement SkillMove;
@@ -21,6 +21,8 @@ public class PlayerInputManager : MonoBehaviour {
     void Awake()
     {
         SkillMove = GetComponent<CharacterMovement>();
+        SetupPlayer(playerId);
+        AddSkill(new Slash_Skill());
     }
 
     void FixedUpdate()
@@ -43,10 +45,11 @@ public class PlayerInputManager : MonoBehaviour {
             return;
         }
 
-        if(GameManager.instance.GameState == GameStates.FIGHT)
+        HandleFightInput();
+
+        /*if(GameManager.instance != null && GameManager.instance.GameState == GameStates.FIGHT)
         {
-            HandleFightInput();
-        }
+        }*/
     }
 
     private void HandleFightInput()
@@ -59,40 +62,56 @@ public class PlayerInputManager : MonoBehaviour {
         {
             if (_player.GetButtonDown("A"))
             {
-                foreach (Skill s in SkillA)
-                {
-                    s.Execute();
-                }
+                UseSkillList(ref SkillA);
             }
 
             if (_player.GetButtonDown("B"))
             {
-                foreach (Skill s in SkillB)
-                {
-                    s.Execute();
-                }
+                UseSkillList(ref SkillB);
             }
 
             if (_player.GetButtonDown("X"))
             {
-                foreach (Skill s in SkillX)
-                {
-                    s.Execute();
-                }
+                UseSkillList(ref SkillX);
             }
 
             if (_player.GetButtonDown("Y"))
             {
-                foreach (Skill s in SkillY)
-                {
-                    s.Execute();
-                }
+                UseSkillList(ref SkillY);
             }
 
             if (_player.GetButtonDown("Dash"))
             {
                 SkillMove.Dash();
             }
+        }
+    }
+
+    public void UseSkillList(ref List<Skill> list){
+        if(list.Count > 0){
+            Skill s = list[0];
+            s.Execute();
+            list.RemoveAt(0);
+            list.Add(s);
+        }
+    }
+
+    public void AddSkill(Skill s){
+        Skill sloc = (Skill)gameObject.AddComponent(s.GetType());
+        sloc.Init();
+        switch(sloc.eButton){
+            case SkillButton.A : 
+                SkillA.Add(sloc);
+                break;
+            case SkillButton.B : 
+                SkillB.Add(sloc);
+                break;
+            case SkillButton.X : 
+                SkillX.Add(sloc);
+                break;
+            case SkillButton.Y : 
+                SkillY.Add(sloc);
+                break;
         }
     }
 }
