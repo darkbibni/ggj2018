@@ -6,6 +6,7 @@ using Rewired;
 public class PlayerInputManager : MonoBehaviour {
 
     public int playerId = 1;
+    public Slash slash;
     private Player _player;
 
     private CharacterMovement SkillMove;
@@ -22,6 +23,7 @@ public class PlayerInputManager : MonoBehaviour {
     {
         SkillMove = GetComponent<CharacterMovement>();
         _player = ReInput.players.GetPlayer(playerId);
+        SkillX.Add(slash);
     }
 
     void FixedUpdate()
@@ -36,32 +38,34 @@ public class PlayerInputManager : MonoBehaviour {
 
         moveY = _player.GetAxis("Vertical");
 
-        if(_player.GetButtonDown("A")){
-            foreach(Skill s in SkillA){
-                s.Execute();
+        if(!SkillMove.IsStun()){
+            if(_player.GetButtonDown("A")){
+                foreach(Skill s in SkillA){
+                    s.Execute();
+                }
             }
-        }
 
-        if(_player.GetButtonDown("B")){
-            foreach(Skill s in SkillB){
-                s.Execute();
+            if(_player.GetButtonDown("B")){
+                foreach(Skill s in SkillB){
+                    s.Execute();
+                }
             }
-        }
 
-        if(_player.GetButtonDown("X")){
-            foreach(Skill s in SkillX){
-                s.Execute();
+            if(_player.GetButtonDown("X")){
+                foreach(Skill s in SkillX){
+                    s.Execute();
+                }
             }
-        }
 
-        if(_player.GetButtonDown("Y")){
-            foreach(Skill s in SkillY){
-                s.Execute();
+            if(_player.GetButtonDown("Y")){
+                foreach(Skill s in SkillY){
+                    s.Execute();
+                }
             }
-        }
 
-        if(_player.GetButtonDown("Dash")){
-            SkillMove.Dash();
+            if(_player.GetButtonDown("Dash")){
+                SkillMove.Dash();
+            }
         }
     }
 	

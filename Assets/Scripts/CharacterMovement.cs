@@ -51,4 +51,8 @@ public class CharacterMovement : MonoBehaviour {
         isStun = false;
     }
 
+    public bool IsStun(){
+        return isStun;
+    }
+
 }
