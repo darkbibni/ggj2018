@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour {
-    
+
+    public float durationOfTransmition = 0.5f;
+
     public int playerId = 0;
     private Player _player = null;
 
     [HideInInspector]
     public CharacterMovement SkillMove;
+
+    public Transform modelTransform;
+
+    public List<GameObject> TrailList = new List<GameObject>();
 
     private List<Skill> SkillA = new List<Skill>();
     private List<Skill> SkillB = new List<Skill>();
@@ -29,7 +36,12 @@ public class PlayerController : MonoBehaviour {
     void Awake()
     {
         SkillMove = GetComponent<CharacterMovement>();
-        SetupPlayer(playerId);
+    }
+
+    public void ShowTrails(bool value){
+        foreach(GameObject go in TrailList){
+            go.SetActive(value);
+        }
     }
 
     void FixedUpdate()
@@ -43,6 +55,7 @@ public class PlayerController : MonoBehaviour {
     {
         this.playerId = playerId;
         _player = ReInput.players.GetPlayer(playerId);
+        Instantiate(GameManager.instance.characterPrefabs[playerId], modelTransform);
     }
 
     void Update()
@@ -76,22 +89,35 @@ public class PlayerController : MonoBehaviour {
         {
             if (_player.GetButtonDown("A"))
             {
-                UseSkillList(ref SkillA);
+                if (UseSkillList(ref SkillA))
+                {
+                    GameManager.instance.uiMgr.UseSkill(playerId, 0);
+                }
             }
 
             if (_player.GetButtonDown("B"))
             {
-                UseSkillList(ref SkillB);
+                if (UseSkillList(ref SkillB))
+                {
+                    GameManager.instance.uiMgr.UseSkill(playerId, 1);
+                }
             }
 
             if (_player.GetButtonDown("X"))
             {
-                UseSkillList(ref SkillX);
+                if (UseSkillList(ref SkillX))
+                {
+                    GameManager.instance.uiMgr.UseSkill(playerId, 2);
+                }
             }
 
             if (_player.GetButtonDown("Y"))
             {
-                UseSkillList(ref SkillY);
+                if(UseSkillList(ref SkillY))
+                {
+                    GameManager.instance.uiMgr.UseSkill(playerId, 3);
+                }
+                
             }
 
             if (_player.GetButtonDown("Dash"))
@@ -101,14 +127,24 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void UseSkillList(ref List<Skill> list){
+    /// <summary>
+    /// Use the first skill available, return false if the list is empty.
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    public bool UseSkillList(ref List<Skill> list){
 
         if(list.Count > 0){
             Skill s = list[0];
-            s.Execute();
+
+            s.Execute(new List<Skill>(list));
             list.RemoveAt(0);
             list.Add(s);
+
+            return true;
         }
+
+        return false;
     }
 
     public void AddSkill(Skill s){
@@ -130,21 +166,67 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void RemoveSkill(Skill s, SkillButton sb)
+    public void TransmitToEnemy(List<Skill> skills, SkillButton sb, PlayerController pc)
     {
-        switch(sb){
-            case SkillButton.A : 
-                SkillA.Remove(s);
+        switch (sb)
+        {
+            case SkillButton.A:
+                foreach(Skill s in skills)
+                {
+                    SkillA.Remove(s);
+                    pc.AddSkill(s);
+                    s.HasBeenTransmitted();
+                }
                 break;
-            case SkillButton.B : 
-                SkillB.Remove(s);
+            case SkillButton.B:
+                foreach (Skill s in skills)
+                {
+                    SkillB.Remove(s);
+                    pc.AddSkill(s);
+                    s.HasBeenTransmitted();
+                }
                 break;
-            case SkillButton.X : 
-                SkillX.Remove(s);
+            case SkillButton.X:
+                foreach (Skill s in skills)
+                {
+                    pc.AddSkill(s);
+                    SkillX.Remove(s);
+                    s.HasBeenTransmitted();
+                }
                 break;
-            case SkillButton.Y : 
-                SkillY.Remove(s);
+            case SkillButton.Y:
+                foreach (Skill s in skills)
+                {
+                    SkillY.Remove(s);
+                    pc.AddSkill(s);
+                    s.HasBeenTransmitted();
+                }
                 break;
         }
+
+        GameObject transmition = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        Destroy(transmition.GetComponent<Collider>());
+
+        StartCoroutine(TransmitCoroutine(transform.position, pc.transform, transmition, durationOfTransmition));
+    }
+
+    IEnumerator TransmitCoroutine(Vector3 from, Transform to, GameObject obj, float duration)
+    {
+        float timer = 0.0f;
+        Transform trsf = obj.transform;
+        if(duration != 0.0f)
+        {
+            float div = 1 / duration;
+
+            while (timer < duration)
+            {
+                trsf.position = Vector3.Lerp(from, to.position, timer * div);
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            
+        }
+
+        Destroy(obj);
     }
 }

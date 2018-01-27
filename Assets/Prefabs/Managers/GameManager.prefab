@@ -53,3 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arenaMgr: {fileID: 0}
   uiMgr: {fileID: 0}
+  characterPrefabs:
+  - {fileID: 1007969554363460, guid: 63bc39376cceb58479d473b40c332106, type: 2}
+  - {fileID: 1483465533515002, guid: 8dee4e269914851489edebaa7cb7de3f, type: 2}
+  - {fileID: 1030187297723620, guid: ae2c9f753985a25469ff945d70cf7feb, type: 2}
+  - {fileID: 1773623454363106, guid: cb8512aafc0d63343bb06554c9b34e28, type: 2}

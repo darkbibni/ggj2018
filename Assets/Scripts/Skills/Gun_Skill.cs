@@ -6,23 +6,45 @@ using UnityEditor;
 public class Gun_Skill : Skill
 {
     private Gun_Data data;
-
-    private void Awake()
+    private GameObject bullet;
+    
+    public override void Execute(List<Skill> _skillsToRemove)
     {
-        data = SkillManager.instance.gun_data;
-    }
+        if (inCooldown || isActive)
+        {
+            return;
+        }
 
-    public override void Execute()
-    {
-        base.Execute();
+        base.Execute(_skillsToRemove);
 
-        GameObject bullet = Instantiate(data.Gun_ProjectilePrefab, transform.position, transform.rotation);
+        bullet = Instantiate(data.Gun_ProjectilePrefab);
+        bullet.transform.position = transform.position;
+        bullet.transform.eulerAngles = new Vector3(90, transform.eulerAngles.y, 0);
+        
         bullet.GetComponent<Gun_Projectile>().skill = this;
 
-        bullet.GetComponent<Rigidbody>().velocity = transform.forward * data.speed;
+        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * data.speed);
     }
 
     public override void Init(PlayerController pc){
+        playerController = pc;
+        data = SkillManager.instance.gun_data;
+        cooldown = data.cooldown;
+    }
 
+    public void EnemyTouched(PlayerController enemy)
+    {
+        if (!isTransmitted)
+        {
+            isTransmitted = true;
+            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+            Destroy(this);
+        }
+    }
+
+    public override void HasBeenTransmitted()
+    {
+        Destroy(bullet);
+        Destroy(this);
     }
 }

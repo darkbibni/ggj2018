@@ -12,9 +12,7 @@ public enum GameStates
 public class GameManager : MonoBehaviour {
     
     public static GameManager instance;
-
     
-
     public GameStates GameState
     {
         get { return gameState; }
@@ -23,6 +21,9 @@ public class GameManager : MonoBehaviour {
 
     public ArenaManager arenaMgr;
     public UiManager uiMgr;
+
+    [Header("Characters")]
+    public GameObject[] characterPrefabs;
 
     private void Awake()
     {
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour {
             // TODO COROUTINE ! TRANSITION --> countdown 3 2 1 GO !
             arenaMgr.SpawnCharacters();
 
-            uiMgr.DisplayFightPanel();
+            uiMgr.DisplayFightPanel(arenaMgr.PlayerCount);
 
             return true;
         }

@@ -4,28 +4,34 @@ using UnityEngine;
 
 public class Gun_Projectile : MonoBehaviour {
 
+    [HideInInspector]
     public Gun_Skill skill;
 
-    private void Awake()
-    {
-        
-    }
+    public bool isActive = true;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (isActive)
         {
-            PlayerController caster = skill.gameObject.GetComponent<PlayerController>();
-            PlayerController otherPlayer = other.GetComponent<PlayerController>();
-
-            if (caster.playerId == otherPlayer.playerId)
+            if (other.tag == "Player")
             {
-                //TODO Add skills, remove skills
+                PlayerController caster = skill.gameObject.GetComponent<PlayerController>();
+                PlayerController otherPlayer = other.GetComponent<PlayerController>();
+
+                if (caster.playerId != otherPlayer.playerId)
+                {
+                    skill.EnemyTouched(otherPlayer);
+                    isActive = false;
+                    Destroy(gameObject);
+                }
             }
-        }
-        else
-        {
-            Destroy(gameObject);
+
+            else if(!(other.tag == "Ground" || other.tag =="Exit"))
+            {
+                skill.End();
+                isActive = false;
+                Destroy(gameObject);
+            }
         }
     }
 }

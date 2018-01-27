@@ -10,16 +10,21 @@ public class CharacterMovement : MonoBehaviour {
     public float DashTime = 0.2f;
     
     public GameObject StunBall;
+    public ParticleSystem DashParticles;
     private Rigidbody _rb;
     private BoxCollider _collider;
+    private ParticleSystem.EmissionModule _emission;
 
     private bool isDashing = false;
     private bool isStun = false;
+
+    private bool isMissile = false;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
+        _emission = DashParticles.emission;
     }
 
     public void Move(float x, float y){
@@ -27,6 +32,8 @@ public class CharacterMovement : MonoBehaviour {
             _rb.MovePosition(_rb.position + (x * Vector3.right * MoveSpeed/1000f) + (y * Vector3.forward * MoveSpeed/1000f));
             _rb.MoveRotation(Quaternion.LookRotation(new Vector3(x, 0f, y)));
         }
+
+        //make missile locomotion
     }
 
     public void Dash(){
@@ -40,6 +47,8 @@ public class CharacterMovement : MonoBehaviour {
             }
             
             _collider.enabled = false;
+            var col = DashParticles.colorOverLifetime.color;
+            col.colorMin = Color.red;
             _rb.DOMove(target, DashTime).OnComplete(()=>{
                 isDashing = false;
                 _collider.enabled = true;
