@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Slash_Data : ScriptableObject
 {
+    public Sprite sprite;
     public GameObject SlashGameObject;
 	public float Amplitude = 120f;
 	public float HitSpeed = 0.2f;

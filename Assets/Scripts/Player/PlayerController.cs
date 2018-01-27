@@ -18,6 +18,19 @@ public class PlayerController : MonoBehaviour {
 
     public List<GameObject> TrailList = new List<GameObject>();
 
+    public float cooldownA = 1;
+    public float cooldownB = 1;
+    public float cooldownX = 2;
+    public float cooldownY = 5;
+    public float globalCooldown = 0.3f;
+    
+    private bool inCooldownA = false;
+    private bool inCooldownB = false;
+    private bool inCooldownX = false;
+    private bool inCooldownY = false;
+    private bool inCooldownGlobal = false;
+
+
     private List<Skill> SkillA = new List<Skill>();
     private List<Skill> SkillB = new List<Skill>();
     private List<Skill> SkillX = new List<Skill>();
@@ -90,46 +103,85 @@ public class PlayerController : MonoBehaviour {
 
         moveY = _player.GetAxis("Vertical");
 
-        if (!SkillMove.IsStun())
+        if (!SkillMove.IsStun() && !inCooldownGlobal)
         {
-            if (_player.GetButtonDown("A"))
+            if (_player.GetButtonDown("A") && !inCooldownA)
             {
                 if (UseSkillList(ref SkillA))
                 {
                     //GameManager.instance.uiMgr.UseSkill(playerId, 0);
+                    inCooldownA = true;
+                    Invoke("CooldownAFinished", cooldownA);
+                    inCooldownGlobal = true;
+                    Invoke("CooldownGlobalFinished", globalCooldown);
                 }
             }
 
-            if (_player.GetButtonDown("B"))
+            if (_player.GetButtonDown("B") && !inCooldownB)
             {
                 if (UseSkillList(ref SkillB))
                 {
                     //GameManager.instance.uiMgr.UseSkill(playerId, 1);
+                    inCooldownB = true;
+                    Invoke("CooldownBFinished", cooldownB);
+                    inCooldownGlobal = true;
+                    Invoke("CooldownGlobalFinished", globalCooldown);
                 }
             }
 
-            if (_player.GetButtonDown("X"))
+            if (_player.GetButtonDown("X") && !inCooldownX)
             {
                 if (UseSkillList(ref SkillX))
                 {
                     //GameManager.instance.uiMgr.UseSkill(playerId, 2);
+                    inCooldownX = true;
+                    Invoke("CooldownXFinished", cooldownX);
+                    inCooldownGlobal = true;
+                    Invoke("CooldownGlobalFinished", globalCooldown);
                 }
             }
 
-            if (_player.GetButtonDown("Y"))
+            if (_player.GetButtonDown("Y") && !inCooldownY)
             {
                 if(UseSkillList(ref SkillY))
                 {
                     //GameManager.instance.uiMgr.UseSkill(playerId, 3);
+                    inCooldownY = true;
+                    Invoke("CooldownYFinished", cooldownY);
+                    inCooldownGlobal = true;
+                    Invoke("CooldownGlobalFinished", globalCooldown);
                 }
-                
-            }
-
-            if (_player.GetButtonDown("Dash"))
-            {
-                SkillMove.Dash();
             }
         }
+        else if (!SkillMove.IsStun() && _player.GetButtonDown("Dash"))
+        {
+            SkillMove.Dash();
+        }
+    }
+
+    private void CooldownAFinished()
+    {
+        inCooldownA = false;
+    }
+
+    private void CooldownBFinished()
+    {
+        inCooldownB = false;
+    }
+
+    private void CooldownXFinished()
+    {
+        inCooldownX = false;
+    }
+
+    private void CooldownYFinished()
+    {
+        inCooldownY = false;
+    }
+
+    private void CooldownGlobalFinished()
+    {
+        inCooldownGlobal = false;
     }
 
     /// <summary>

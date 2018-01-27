@@ -10,7 +10,7 @@ public class Gun_Skill : Skill
     
     public override void Execute(List<Skill> _skillsToRemove)
     {
-        if (inCooldown || isActive)
+        if (isActive)
         {
             return;
         }
@@ -29,7 +29,6 @@ public class Gun_Skill : Skill
     public override void Init(PlayerController pc){
         playerController = pc;
         data = SkillManager.instance.gun_data;
-        cooldown = data.cooldown;
     }
 
     public void EnemyTouched(PlayerController enemy)
