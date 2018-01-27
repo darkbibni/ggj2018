@@ -81,7 +81,7 @@ public class UiManager : MonoBehaviour {
     {
         SetCurrentPanel(endPanel);
 
-        winnerText.text = "Player " + winnerId.ToString() +" wins !";
+        winnerText.text = "Player " + (winnerId+1) +" wins !";
     }
 
     public void UseSkill(int playerId, int skillId)

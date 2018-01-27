@@ -7,42 +7,40 @@ public class SkillsUI : MonoBehaviour {
 
     public GameObject[] inputs;
 
-    public GameObject[] mainSkills;
-    private GameObject[,] otherSkills;
+    public GameObject[] currentSkill;
+    public GameObject[] nextSkill;
 
     private void Reset()
     {
+        Transform inputsParent = transform.GetChild(2);
+
         int actualChild = 0;
-        inputs = new GameObject[transform.childCount];
-        foreach (Transform t in transform)
+        inputs = new GameObject[inputsParent.childCount];
+        foreach (Transform t in inputsParent)
         {
             inputs[actualChild] = t.gameObject;
             actualChild++;
         }
 
-        mainSkills = new GameObject[4];
-        
+        currentSkill = new GameObject[4];
+        nextSkill = new GameObject[4];
+
         //otherSkills = new GameObject[4, 3];
         for (int i = 0; i < inputs.Length; i++)
         {
-            /*
-            for (int j = 0; j < 3; i++)
-            {
-                otherSkills[i, j] = inputs[i].transform.GetChild(j).gameObject;
-            }
-            */
-            mainSkills[i] = inputs[i].transform.GetChild(3).gameObject;
+            currentSkill[i] = inputs[i].transform.GetChild(1).gameObject;
+            nextSkill[i] = inputs[i].transform.GetChild(0).gameObject;
         }
     }
 
     public void PressMainSkill(int inputId)
     {
-        mainSkills[inputId].transform.DOScale(Vector3.one * 1.2f, 0.2f).OnComplete(()=>{
-            mainSkills[inputId].transform.localScale = Vector3.one;
+        currentSkill[inputId].transform.DOScale(Vector3.one * 1.2f, 0.2f).OnComplete(()=>{
+            currentSkill[inputId].transform.localScale = Vector3.one;
         });
     }
 
-    public void UpdateOtherSkill(int inputId, int otherSkillId)
+    public void UpdateCurrentAndNext(Sprite current, Sprite next)
     {
         // Color in black and white --> use shader
         //otherSkills[inputId, otherSkillId]
