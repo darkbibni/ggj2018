@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour {
     
@@ -133,7 +134,8 @@ public class PlayerController : MonoBehaviour {
 
         if(list.Count > 0){
             Skill s = list[0];
-            s.Execute();
+
+            s.Execute(new List<Skill>(list));
             list.RemoveAt(0);
             list.Add(s);
 
@@ -162,21 +164,46 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void RemoveSkill(Skill s, SkillButton sb)
+    public void TransmitToEnemy(List<Skill> skills, SkillButton sb, PlayerController pc)
     {
-        switch(sb){
-            case SkillButton.A : 
-                SkillA.Remove(s);
+        switch (sb)
+        {
+            case SkillButton.A:
+                foreach(Skill s in skills)
+                {
+                    SkillA.Remove(s);
+                    pc.AddSkill(s);
+                    s.HasBeenTransmitted();
+                }
                 break;
-            case SkillButton.B : 
-                SkillB.Remove(s);
+            case SkillButton.B:
+                foreach (Skill s in skills)
+                {
+                    SkillB.Remove(s);
+                    pc.AddSkill(s);
+                    s.HasBeenTransmitted();
+                }
                 break;
-            case SkillButton.X : 
-                SkillX.Remove(s);
+            case SkillButton.X:
+                foreach (Skill s in skills)
+                {
+                    pc.AddSkill(s);
+                    SkillX.Remove(s);
+                    s.HasBeenTransmitted();
+                }
                 break;
-            case SkillButton.Y : 
-                SkillY.Remove(s);
+            case SkillButton.Y:
+                foreach (Skill s in skills)
+                {
+                    SkillY.Remove(s);
+                    pc.AddSkill(s);
+                    s.HasBeenTransmitted();
+                }
                 break;
         }
+
+        GameObject transmition = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        transmition.transform.position = transform.position;
+        transmition.transform.DOMove(pc.transform.position, 0.5f);
     }
 }
