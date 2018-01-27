@@ -8,18 +8,18 @@ public class Missile_Skill : Skill {
 	private Missile_Data data;
 	private bool transmitted = false;
 	GameObject instanceMissile;
-	Renderer PlayerRenderer;
-	BoxCollider PlayerCollider;
+	GameObject playerModel;
+	Collider PlayerCollider;
 
 	public override void Init(PlayerController pc){
 		playerController = pc;
-		PlayerRenderer = GetComponent<Renderer>();
-		PlayerCollider = GetComponent<BoxCollider>();
+        playerModel = transform.GetChild(0).gameObject;
+		PlayerCollider = GetComponent<Collider>();
 		data = SkillManager.instance.missile_data;
 		eButton = data.eButton;
 		instanceMissile = Instantiate(data.MissileGameObject);
 		instanceMissile.transform.parent = transform;
-		instanceMissile.transform.localPosition = Vector3.zero;
+        instanceMissile.transform.localPosition = Vector3.zero;
 		instanceMissile.transform.localRotation =  Quaternion.Euler(Vector3.zero);
 	}
 
@@ -34,7 +34,7 @@ public class Missile_Skill : Skill {
 
 	void ShowPlayer(bool value){
 		PlayerCollider.enabled = value;
-		PlayerRenderer.enabled = value;
+        playerModel.gameObject.SetActive(value);
 		playerController.ShowTrails(value);
 	}
 
@@ -53,7 +53,9 @@ public class Missile_Skill : Skill {
             enemy.SkillMove.Stun(2.0f);
             playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
             Destroy(this);
-		}else{
+		}
+
+        else {
 			ShowPlayer(true);
 			instanceMissile.SetActive(false);
 			isActive = false;

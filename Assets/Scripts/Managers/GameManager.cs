@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour {
     public ArenaManager arenaMgr;
     public UiManager uiMgr;
 
+    [Header("Characters")]
+    public GameObject[] characterPrefabs;
+
     private void Awake()
     {
         if(instance == null)

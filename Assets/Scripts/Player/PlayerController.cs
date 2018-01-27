@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector]
     public CharacterMovement SkillMove;
 
-    public UiManager uiMgr;
+    public Transform modelTransform;
 
     public List<GameObject> TrailList = new List<GameObject>();
 
@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour {
     void Awake()
     {
         SkillMove = GetComponent<CharacterMovement>();
-        SetupPlayer(playerId);
     }
 
     public void ShowTrails(bool value){
@@ -54,6 +53,7 @@ public class PlayerController : MonoBehaviour {
     {
         this.playerId = playerId;
         _player = ReInput.players.GetPlayer(playerId);
+        Instantiate(GameManager.instance.characterPrefabs[playerId], modelTransform);
     }
 
     void Update()
