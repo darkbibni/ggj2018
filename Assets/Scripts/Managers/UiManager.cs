@@ -23,6 +23,7 @@ public class UiManager : MonoBehaviour {
 
     [Header("End UI")]
     public GameObject endPanel;
+    public Text winnerText;
 
     private GameObject currentPanel;
 
@@ -66,5 +67,12 @@ public class UiManager : MonoBehaviour {
     public void DisplayFightPanel()
     {
         SetCurrentPanel(null);
+    }
+
+    public void DisplayEndPanel(int winnerId)
+    {
+        SetCurrentPanel(endPanel);
+
+        winnerText.text = "Player " + winnerId.ToString() +" wins !";
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ExitBehaviour : MonoBehaviour {
 
@@ -8,16 +6,15 @@ public class ExitBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        // TODO get player component.
-        // other.GetComponent<>()
+        PlayerController player = other.GetComponent<PlayerController>();
 
         // Get player and check if he has no abilities.
-        if (false)
+        if (player)
         {
-            // TODO get player index.
-
-            int winnerIndex = 0;
-            arenaMgr.TriggerWin(winnerIndex);
+            if(player.IsEmpty)
+            {
+                arenaMgr.TriggerWin(player.playerId);
+            }
         }
     }
 }

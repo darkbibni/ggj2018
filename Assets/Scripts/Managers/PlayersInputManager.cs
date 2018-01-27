@@ -13,6 +13,11 @@ public class PlayersInputManager : MonoBehaviour {
     
     private void Update()
     {
+        if(GameManager.instance == null)
+        {
+            return;
+        }
+
         switch(GameManager.instance.GameState)
         {
             case GameStates.SETUP: HandleFightSetup(); break;
@@ -62,6 +67,13 @@ public class PlayersInputManager : MonoBehaviour {
         for (int i = 0; i < ReInput.players.allPlayerCount; i++)
         {
             Player p = ReInput.players.AllPlayers[i];
+
+            if (p.GetButtonDown("Pause"))
+            {
+                GameManager.instance.ResetGame();
+
+                Debug.Log("RESTART !");
+            }
         }
     }
 }

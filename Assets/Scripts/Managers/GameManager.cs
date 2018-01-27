@@ -92,8 +92,10 @@ public class GameManager : MonoBehaviour {
         uiMgr.DisplaySetupPanel();
     }
 
-    public void StopFight()
+    public void StopFight(int winnerIndex)
     {
         gameState = GameStates.END;
+
+        uiMgr.DisplayEndPanel(winnerIndex);
     }
 }
