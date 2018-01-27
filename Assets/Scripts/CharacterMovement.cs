@@ -10,8 +10,10 @@ public class CharacterMovement : MonoBehaviour {
     public float DashTime = 0.2f;
     
     public GameObject StunBall;
+    public ParticleSystem DashParticles;
     private Rigidbody _rb;
     private BoxCollider _collider;
+    private ParticleSystem.EmissionModule _emission;
 
     private bool isDashing = false;
     private bool isStun = false;
@@ -20,6 +22,7 @@ public class CharacterMovement : MonoBehaviour {
     {
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<BoxCollider>();
+        _emission = DashParticles.emission;
     }
 
     public void Move(float x, float y){
@@ -40,6 +43,8 @@ public class CharacterMovement : MonoBehaviour {
             }
             
             _collider.enabled = false;
+            var col = DashParticles.colorOverLifetime.color;
+            col.colorMin = Color.red;
             _rb.DOMove(target, DashTime).OnComplete(()=>{
                 isDashing = false;
                 _collider.enabled = true;
