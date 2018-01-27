@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Rewired;
+using UnityEngine;
 
 public class PlayerInputManager : MonoBehaviour {
 
@@ -32,36 +31,83 @@ public class PlayerInputManager : MonoBehaviour {
     }
     void Update()
     {
+        switch (GameManager.instance.GameState)
+        {
+            case GameStates.SETUP:
+                HandleSetupInput();
+                break;
+
+            case GameStates.FIGHT:
+                HandleFightInput();
+                break;
+
+            case GameStates.END:
+                HandleEndInput();
+                break;
+        }
+    }
+
+    private void HandleSetupInput()
+    {
+        if (_player.GetButtonDown("A"))
+        {
+            Debug.Log("START FIGHT");
+
+            GameManager.instance.StartFight();
+        }
+    }
+
+    private void HandleFightInput()
+    {
         moveX = _player.GetAxis("Horizontal");
 
         moveY = _player.GetAxis("Vertical");
 
-        if(_player.GetButtonDown("A")){
-            foreach(Skill s in SkillA){
+        if (_player.GetButtonDown("A"))
+        {
+            foreach (Skill s in SkillA)
+            {
                 s.Execute();
             }
         }
 
-        if(_player.GetButtonDown("B")){
-            foreach(Skill s in SkillB){
+        if (_player.GetButtonDown("B"))
+        {
+            foreach (Skill s in SkillB)
+            {
                 s.Execute();
             }
         }
 
-        if(_player.GetButtonDown("X")){
-            foreach(Skill s in SkillX){
+        if (_player.GetButtonDown("X"))
+        {
+            foreach (Skill s in SkillX)
+            {
                 s.Execute();
             }
         }
 
-        if(_player.GetButtonDown("Y")){
-            foreach(Skill s in SkillY){
+        if (_player.GetButtonDown("Y"))
+        {
+            foreach (Skill s in SkillY)
+            {
                 s.Execute();
             }
         }
 
-        if(_player.GetButtonDown("Dash")){
+        if (_player.GetButtonDown("Dash"))
+        {
             SkillMove.Dash();
+        }
+    }
+
+    private void HandleEndInpout()
+    {
+        if (_player.GetButtonDown("A"))
+        {
+            Debug.Log("RESET");
+
+            GameManager.instance.ResetGame();
         }
     }
 	

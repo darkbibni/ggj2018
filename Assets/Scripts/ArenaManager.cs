@@ -13,7 +13,7 @@ public class ArenaManager : MonoBehaviour
 
     private void Awake()
     {
-        SetupSpawns(3);
+        
     }
 
     /// <summary>
@@ -59,5 +59,7 @@ public class ArenaManager : MonoBehaviour
         // DISPLAY WINNER.
 
         Debug.Log("Player " + winnerIndex + " wins !");
+
+        GameManager.instance.StopFight();
     }
 }
