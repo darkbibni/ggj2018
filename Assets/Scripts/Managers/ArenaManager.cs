@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ArenaManager : MonoBehaviour
@@ -22,9 +21,14 @@ public class ArenaManager : MonoBehaviour
     
     private void Awake()
     {
-        
+
     }
 
+    #region Spawn and characters
+
+    /// <summary>
+    /// Clear spawns and characters.
+    /// </summary>
     public void ResetArena()
     {
         playersIndex.Clear();
@@ -98,6 +102,12 @@ public class ArenaManager : MonoBehaviour
     {
         characters = new GameObject[spawns.Length];
 
+        // Generate a list of skills to distribuate to each players.
+        List<Skill> skillsA = SkillManager.instance.GenerateListOfSkills(SkillManager.instance.skillsA, spawns.Length);
+        List<Skill> skillsX = SkillManager.instance.GenerateListOfSkills(SkillManager.instance.skillsX, spawns.Length);
+        List<Skill> skillsB = SkillManager.instance.GenerateListOfSkills(SkillManager.instance.skillsB, spawns.Length);
+        List<Skill> skillsY = SkillManager.instance.GenerateListOfSkills(SkillManager.instance.skillsY, spawns.Length);
+
         for (int i = 0; i < spawns.Length; i++)
         {
             characters[i] = Instantiate(characterPrefab, spawns[i].transform.position + Vector3.up * characterPrefab.transform.position.y, Quaternion.identity, charactersParent);
@@ -107,12 +117,48 @@ public class ArenaManager : MonoBehaviour
 
             PlayerController playerInput = characters[i].GetComponent<PlayerController>();
             playerInput.SetupPlayer(i);
+
+            // Add 4 skills to the character
+            {
+                if (skillsA.Count > 0)
+                {
+                    playerInput.AddSkill(skillsA[0]);
+                    skillsA.RemoveAt(0);
+                }
+
+                if (skillsX.Count > 0)
+                {
+                    playerInput.AddSkill(skillsX[0]);
+                    skillsX.RemoveAt(0);
+                }
+
+                if (skillsB.Count > 0)
+                {
+                    playerInput.AddSkill(skillsB[0]);
+                    skillsB.RemoveAt(0);
+                }
+
+                if (skillsY.Count > 0)
+                {
+                    playerInput.AddSkill(skillsY[0]);
+                    skillsY.RemoveAt(0);
+                }
+            }
         }
     }
 
-    // Trigger win !
+    #endregion
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="winnerIndex"></param>
     public void TriggerWin(int winnerIndex)
     {
         GameManager.instance.StopFight(winnerIndex);
     }
+
+    #region Skill management
+    
+    #endregion
 }

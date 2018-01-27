@@ -25,7 +25,6 @@ GameObject:
   - component: {fileID: 54372404528812724}
   - component: {fileID: 114237115672666904}
   - component: {fileID: 114390120337166052}
-  - component: {fileID: 114606307600662522}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -569,6 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4d101c2a222c646bf19c9bc5b6b027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerId: 1
 --- !u!114 &114390120337166052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -584,19 +584,6 @@ MonoBehaviour:
   DashLength: 3
   DashTime: 0.2
   StunBall: {fileID: 1885310702280300}
---- !u!114 &114606307600662522
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1030711296124664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d0cfb1a7502a444a94c6580476a44e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isActive: 0
-  cooldown: 0
 --- !u!114 &114655876140075908
 MonoBehaviour:
   m_ObjectHideFlags: 1

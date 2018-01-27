@@ -9,7 +9,6 @@ public enum SkillButton{
 	Y = 3 
 }
 
-
 public abstract class Skill : MonoBehaviour {
 
 	public SkillButton eButton;

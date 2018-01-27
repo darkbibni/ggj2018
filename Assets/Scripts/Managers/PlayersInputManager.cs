@@ -13,6 +13,11 @@ public class PlayersInputManager : MonoBehaviour {
     
     private void Update()
     {
+        if(GameManager.instance == null)
+        {
+            return;
+        }
+
         switch(GameManager.instance.GameState)
         {
             case GameStates.SETUP: HandleFightSetup(); break;
