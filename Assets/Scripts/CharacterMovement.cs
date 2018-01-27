@@ -8,8 +8,11 @@ public class CharacterMovement : MonoBehaviour {
     public float MoveSpeed = 1f;
     public float DashLength = 3f;
     public float DashTime = 0.2f;
+    public GameObject StunBall;
     private Rigidbody _rb;
     private bool isDashing = false;
+
+    private bool isStun = false;
 
     void Awake()
     {
@@ -17,8 +20,10 @@ public class CharacterMovement : MonoBehaviour {
     }
 
     public void Move(float x, float y){
-        _rb.MovePosition(_rb.position + (x * Vector3.right * MoveSpeed/1000f) + (y * Vector3.forward * MoveSpeed/1000f));
-        _rb.MoveRotation(Quaternion.LookRotation(new Vector3(x, 0f, y)));
+        if(!isStun){
+            _rb.MovePosition(_rb.position + (x * Vector3.right * MoveSpeed/1000f) + (y * Vector3.forward * MoveSpeed/1000f));
+            _rb.MoveRotation(Quaternion.LookRotation(new Vector3(x, 0f, y)));
+        }
     }
 
     public void Dash(){
@@ -32,6 +37,22 @@ public class CharacterMovement : MonoBehaviour {
             }
             _rb.DOMove(target, DashTime).OnComplete(()=>{ isDashing = false; });
         }
+    }
+
+    public void Stun(float duration){
+        isStun = true;
+        StartCoroutine(StunCoroutine(duration));
+    }
+
+    IEnumerator StunCoroutine (float duration){
+        StunBall.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        StunBall.SetActive(false);
+        isStun = false;
+    }
+
+    public bool IsStun(){
+        return isStun;
     }
 
 }

@@ -5,8 +5,8 @@ using Rewired;
 
 public class PlayerInputManager : MonoBehaviour {
 
-    public int playerId = 1;
-    private Player _player;
+    private int playerId = 1;
+    private Player _player = null;
 
     private CharacterMovement SkillMove;
 
@@ -21,7 +21,6 @@ public class PlayerInputManager : MonoBehaviour {
     void Awake()
     {
         SkillMove = GetComponent<CharacterMovement>();
-        _player = ReInput.players.GetPlayer(playerId);
     }
 
     void FixedUpdate()
@@ -30,39 +29,70 @@ public class PlayerInputManager : MonoBehaviour {
             SkillMove.Move(moveX, moveY);
         }
     }
+
+    public void SetupPlayer(int playerId)
+    {
+        this.playerId = playerId;
+        _player = ReInput.players.GetPlayer(playerId);
+    }
+
     void Update()
+    {
+        if(_player == null)
+        {
+            return;
+        }
+
+        if(GameManager.instance.GameState == GameStates.FIGHT)
+        {
+            HandleFightInput();
+        }
+    }
+
+    private void HandleFightInput()
     {
         moveX = _player.GetAxis("Horizontal");
 
         moveY = _player.GetAxis("Vertical");
 
-        if(_player.GetButtonDown("A")){
-            foreach(Skill s in SkillA){
-                s.Execute();
+        if (!SkillMove.IsStun())
+        {
+            if (_player.GetButtonDown("A"))
+            {
+                foreach (Skill s in SkillA)
+                {
+                    s.Execute();
+                }
             }
-        }
 
-        if(_player.GetButtonDown("B")){
-            foreach(Skill s in SkillB){
-                s.Execute();
+            if (_player.GetButtonDown("B"))
+            {
+                foreach (Skill s in SkillB)
+                {
+                    s.Execute();
+                }
             }
-        }
 
-        if(_player.GetButtonDown("X")){
-            foreach(Skill s in SkillX){
-                s.Execute();
+            if (_player.GetButtonDown("X"))
+            {
+                foreach (Skill s in SkillX)
+                {
+                    s.Execute();
+                }
             }
-        }
 
-        if(_player.GetButtonDown("Y")){
-            foreach(Skill s in SkillY){
-                s.Execute();
+            if (_player.GetButtonDown("Y"))
+            {
+                foreach (Skill s in SkillY)
+                {
+                    s.Execute();
+                }
             }
-        }
 
-        if(_player.GetButtonDown("Dash")){
-            SkillMove.Dash();
+            if (_player.GetButtonDown("Dash"))
+            {
+                SkillMove.Dash();
+            }
         }
     }
-	
 }

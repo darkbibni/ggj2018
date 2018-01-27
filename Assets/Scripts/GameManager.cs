@@ -2,19 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameStates
+{
+    SETUP,
+    FIGHT,
+    END
+}
+
 public class GameManager : MonoBehaviour {
+    
+    public static GameManager instance;
 
-    private int numberOfPlayers = 0;
-
-    public static GameManager singleton;
+    public GameStates GameState
+    {
+        get { return gameState; }
+    }
+    private GameStates gameState;
 
     public ArenaManager arenaMgr;
 
     private void Awake()
     {
-        if(singleton == null)
+        if(instance == null)
         {
-            singleton = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
@@ -23,12 +34,49 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
-        
-        // TODO check first all players with a button "A" by example.
+
+        ResetGame();
     }
 
-    private void Setup()
+    public bool JoinFight(int playerIndex) {
+        
+        bool join = arenaMgr.AddPlayer(playerIndex);
+
+        return join;
+    }
+
+    public bool QuitFight(int playerIndex)
     {
-        arenaMgr.SetupSpawns(numberOfPlayers);
+        bool quit = arenaMgr.RemovePlayer(playerIndex);
+
+        return quit;
+    }
+    
+    public bool StartFight()
+    {
+        if(arenaMgr.CanStartFight)
+        {
+            gameState = GameStates.FIGHT;
+
+            arenaMgr.SetupSpawns();
+
+            // TODO COROUTINE ! TRANSITION --> countdown 3 2 1 GO !
+            arenaMgr.SpawnCharacters();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public void ResetGame()
+    {
+        gameState = GameStates.SETUP;
+        arenaMgr.ResetArena();
+    }
+
+    public void StopFight()
+    {
+        gameState = GameStates.END;
     }
 }
