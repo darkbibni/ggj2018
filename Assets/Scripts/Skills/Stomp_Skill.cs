@@ -11,7 +11,7 @@ public class Stomp_Skill : Skill {
 	public override void Init(PlayerController pc){
 		playerController = pc;
 		data = SkillManager.instance.stomp_data;
-
+		eButton = data.eButton;
 		instanceStomp = Instantiate(data.StompGameObject);
 		instanceStomp.transform.parent = transform;
 		instanceStomp.transform.localPosition = Vector3.zero;
