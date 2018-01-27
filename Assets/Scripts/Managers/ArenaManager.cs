@@ -17,6 +17,8 @@ public class ArenaManager : MonoBehaviour
     }
 
     private GameObject[] spawns;
+
+    private GameObject[] characters;
     
     private void Awake()
     {
@@ -32,6 +34,14 @@ public class ArenaManager : MonoBehaviour
             foreach (GameObject spawn in spawns)
             {
                 Destroy(spawn);
+            }
+        }
+
+        if(characters != null)
+        {
+            foreach(GameObject character in characters)
+            {
+                Destroy(character);
             }
         }
     }
@@ -72,8 +82,11 @@ public class ArenaManager : MonoBehaviour
         for (int i = 0; i < spawns.Length; i++)
         {
             spawns[i] = Instantiate(SpawnPrefab, Vector3.right * -10f, SpawnPrefab.transform.rotation, spawnsParent);
-            
+            spawns[i].transform.localPosition += Vector3.up * 0.01f;
+
             spawns[i].transform.RotateAround(Vector3.zero, Vector3.up, turnAngle * i);
+
+            // TODO Color
         }
     }
    
@@ -83,14 +96,16 @@ public class ArenaManager : MonoBehaviour
     /// <param name="numberOfPlayers"></param>
     public void SpawnCharacters()
     {
+        characters = new GameObject[spawns.Length];
+
         for (int i = 0; i < spawns.Length; i++)
         {
-            GameObject character = Instantiate(characterPrefab, spawns[i].transform.position + Vector3.up * characterPrefab.transform.position.y, Quaternion.identity, charactersParent);
-            
-            // Orientate to exit.
-            character.transform.LookAt(Vector3.zero);
+            characters[i] = Instantiate(characterPrefab, spawns[i].transform.position + Vector3.up * characterPrefab.transform.position.y, Quaternion.identity, charactersParent);
 
-            PlayerController playerInput = character.GetComponent<PlayerController>();
+            // Orientate to exit.
+            characters[i].transform.LookAt(Vector3.zero);
+
+            PlayerController playerInput = characters[i].GetComponent<PlayerController>();
             playerInput.SetupPlayer(i);
         }
     }
@@ -98,12 +113,6 @@ public class ArenaManager : MonoBehaviour
     // Trigger win !
     public void TriggerWin(int winnerIndex)
     {
-        // TODO Stop all players
-
-        // DISPLAY WINNER.
-
-        Debug.Log("Player " + winnerIndex + " wins !");
-
-        GameManager.instance.StopFight();
+        GameManager.instance.StopFight(winnerIndex);
     }
 }

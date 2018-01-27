@@ -62,6 +62,13 @@ public class PlayersInputManager : MonoBehaviour {
         for (int i = 0; i < ReInput.players.allPlayerCount; i++)
         {
             Player p = ReInput.players.AllPlayers[i];
+
+            if (p.GetButtonDown("Pause"))
+            {
+                GameManager.instance.ResetGame();
+
+                Debug.Log("RESTART !");
+            }
         }
     }
 }

@@ -18,6 +18,13 @@ public class PlayerController : MonoBehaviour {
     private float moveX = 0.0f;
     private float moveY = 0.0f;
 
+    public bool IsEmpty {
+        get
+        {
+            return SkillA.Count == 0 && SkillB.Count == 0 && SkillX.Count == 0 && SkillY.Count == 0;
+        }
+    }
+
     void Awake()
     {
         SkillMove = GetComponent<CharacterMovement>();
@@ -44,14 +51,18 @@ public class PlayerController : MonoBehaviour {
             return;
         }
         
-        /*
-        if(GameManager.instance.GameState == GameStates.FIGHT)
+        if(GameManager.instance != null)
+        {
+            if (GameManager.instance.GameState == GameStates.FIGHT)
+            {
+                HandleFightInput();
+            }
+        } 
+
+        else
         {
             HandleFightInput();
         }
-        */
-
-        HandleFightInput();
     }
 
     private void HandleFightInput()
