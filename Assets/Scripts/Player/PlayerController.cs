@@ -78,30 +78,35 @@ public class PlayerController : MonoBehaviour {
         {
             if (_player.GetButtonDown("A"))
             {
-                UseSkillList(ref SkillA);
-
-                GameManager.instance.uiMgr.UseSkill(playerId, 0);
+                if (UseSkillList(ref SkillA))
+                {
+                    GameManager.instance.uiMgr.UseSkill(playerId, 0);
+                }
             }
 
             if (_player.GetButtonDown("B"))
             {
-                UseSkillList(ref SkillB);
-
-                GameManager.instance.uiMgr.UseSkill(playerId, 1);
+                if (UseSkillList(ref SkillB))
+                {
+                    GameManager.instance.uiMgr.UseSkill(playerId, 1);
+                }
             }
 
             if (_player.GetButtonDown("X"))
             {
-                UseSkillList(ref SkillX);
-
-                GameManager.instance.uiMgr.UseSkill(playerId, 2);
+                if (UseSkillList(ref SkillX))
+                {
+                    GameManager.instance.uiMgr.UseSkill(playerId, 2);
+                }
             }
 
             if (_player.GetButtonDown("Y"))
             {
-                UseSkillList(ref SkillY);
-
-                GameManager.instance.uiMgr.UseSkill(playerId, 3);
+                if(UseSkillList(ref SkillY))
+                {
+                    GameManager.instance.uiMgr.UseSkill(playerId, 3);
+                }
+                
             }
 
             if (_player.GetButtonDown("Dash"))
@@ -111,14 +116,23 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void UseSkillList(ref List<Skill> list){
+    /// <summary>
+    /// Use the first skill available, return false if the list is empty.
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    public bool UseSkillList(ref List<Skill> list){
 
         if(list.Count > 0){
             Skill s = list[0];
             s.Execute();
             list.RemoveAt(0);
             list.Add(s);
+
+            return true;
         }
+
+        return false;
     }
 
     public void AddSkill(Skill s){
