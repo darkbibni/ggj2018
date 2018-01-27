@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class Gun_Projectile : MonoBehaviour {
 
+    [HideInInspector]
     public Gun_Skill skill;
-
-    private void Awake()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,14 +13,18 @@ public class Gun_Projectile : MonoBehaviour {
         {
             PlayerController caster = skill.gameObject.GetComponent<PlayerController>();
             PlayerController otherPlayer = other.GetComponent<PlayerController>();
-
-            if (caster.playerId == otherPlayer.playerId)
+            
+            if (caster.playerId != otherPlayer.playerId)
             {
-                //TODO Add skills, remove skills
+                otherPlayer.AddSkill(skill);
+                caster.RemoveSkill(skill, skill.eButton);
+                Destroy(gameObject);
+                Destroy(skill);
             }
         }
         else
         {
+            skill.End();
             Destroy(gameObject);
         }
     }

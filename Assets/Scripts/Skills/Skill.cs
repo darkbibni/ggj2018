@@ -11,12 +11,13 @@ public enum SkillButton{
 
 public abstract class Skill : MonoBehaviour {
 
-    public PlayerController playerController;
     public SkillButton eButton;
-	public bool isActive = false;
-	public float cooldown;
 
-    protected bool inCooldown;
+    protected PlayerController playerController;
+    protected float cooldown = 0;
+    protected bool isActive = false;
+    protected bool isTransmitted = false;
+    protected bool inCooldown = false;
 
     public abstract void Init(PlayerController pc);
     public virtual void Execute()
