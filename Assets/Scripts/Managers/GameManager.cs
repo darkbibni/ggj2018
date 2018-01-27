@@ -70,21 +70,37 @@ public class GameManager : MonoBehaviour {
     {
         if(arenaMgr.CanStartFight)
         {
-            gameState = GameStates.FIGHT;
+            StartCoroutine(CountDown());
 
             arenaMgr.SetupSpawns();
-
-            uiMgr.DisplayFightPanel(arenaMgr.PlayerCount);
-
-            // TODO COROUTINE ! TRANSITION --> countdown 3 2 1 GO !
+            
             arenaMgr.SpawnCharacters();
 
-            
+            uiMgr.DisplayFightPanel(arenaMgr.PlayerCount);
 
             return true;
         }
 
         return false;
+    }
+
+    private IEnumerator CountDown()
+    {
+        uiMgr.EnableCountDown(true);
+
+        for (int i = 3; i > 0; i--)
+        {
+            uiMgr.UpdateCountDown(i.ToString());
+            yield return new WaitForSeconds(0.33f);
+        }
+
+        uiMgr.UpdateCountDown("FIGHT !");
+
+        yield return new WaitForSeconds(0.25f);
+
+        uiMgr.EnableCountDown(false);
+
+        gameState = GameStates.FIGHT;
     }
 
     public void ResetGame()

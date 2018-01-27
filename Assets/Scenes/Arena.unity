@@ -199,6 +199,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114170286728838900, guid: ad8589604425a064b8c3db71656b1e1e,
+        type: 2}
+      propertyPath: playerColors.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4419462155425706, guid: ad8589604425a064b8c3db71656b1e1e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -237,6 +242,26 @@ Prefab:
       value: 
       objectReference: {fileID: 1656272016558584, guid: 6c467796908b0b5428313b478ca4ff05,
         type: 2}
+    - target: {fileID: 114170286728838900, guid: ad8589604425a064b8c3db71656b1e1e,
+        type: 2}
+      propertyPath: playerColors.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d14474147c2c2ca49bb4c729659bef83, type: 2}
+    - target: {fileID: 114170286728838900, guid: ad8589604425a064b8c3db71656b1e1e,
+        type: 2}
+      propertyPath: playerColors.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ddbefb721b472894493bb7f3ce54f17a, type: 2}
+    - target: {fileID: 114170286728838900, guid: ad8589604425a064b8c3db71656b1e1e,
+        type: 2}
+      propertyPath: playerColors.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: b14a479923574034e860c28c174d8108, type: 2}
+    - target: {fileID: 114170286728838900, guid: ad8589604425a064b8c3db71656b1e1e,
+        type: 2}
+      propertyPath: playerColors.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7762c7f26cae14a448fba58160ceb154, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad8589604425a064b8c3db71656b1e1e, type: 2}
   m_IsPrefabParent: 0
@@ -899,6 +924,11 @@ Prefab:
       propertyPath: arenaMgr
       value: 
       objectReference: {fileID: 1781191483}
+    - target: {fileID: 212801941042569124, guid: 6dca0b8b99989ba4abe59b07d36f4eef,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c08d3919a3cf42541ad1e50fa6714344, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6dca0b8b99989ba4abe59b07d36f4eef, type: 2}
   m_IsPrefabParent: 0
@@ -1405,10 +1435,6 @@ Prefab:
         type: 2}
       propertyPath: m_LocalPosition.y
       value: -108
-      objectReference: {fileID: 0}
-    - target: {fileID: 1725400605888730, guid: 154179c74bcd9ef4985d3c947155a0f0, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 154179c74bcd9ef4985d3c947155a0f0, type: 2}

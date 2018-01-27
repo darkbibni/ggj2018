@@ -17,6 +17,9 @@ public class UiManager : MonoBehaviour {
     public Sprite joinSprite;
     public string joinText = "to join";
 
+    public GameObject countdownPanel;
+    public Text countdownValue;
+
     [Header("Fight UI")]
     public GameObject fightPanel;
     public GameObject[] playerInputs;
@@ -110,5 +113,15 @@ public class UiManager : MonoBehaviour {
     public void RemoveSkillFeedback(int playerId, int skillId)
     {
 
+    }
+
+    public void EnableCountDown(bool enable)
+    {
+        countdownPanel.SetActive(enable);
+    }
+
+    public void UpdateCountDown(string newText)
+    {
+        countdownValue.text = newText;
     }
 }

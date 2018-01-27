@@ -23,13 +23,15 @@ public class PlayerController : MonoBehaviour {
     public float cooldownX = 2;
     public float cooldownY = 5;
     public float globalCooldown = 0.3f;
+
+    public float dashCooldown = 0.5f;
     
     private bool inCooldownA = false;
     private bool inCooldownB = false;
     private bool inCooldownX = false;
     private bool inCooldownY = false;
     private bool inCooldownGlobal = false;
-
+    private bool inCooldownDash = false;
 
     private List<Skill> SkillA = new List<Skill>();
     private List<Skill> SkillB = new List<Skill>();
@@ -181,9 +183,12 @@ public class PlayerController : MonoBehaviour {
                 Invoke("CooldownGlobalFinished", globalCooldown);
             }
         }
-        else if (!SkillMove.IsStun() && _player.GetButtonDown("Dash"))
+
+        if (!SkillMove.IsStun() && _player.GetButtonDown("Dash") && !inCooldownDash)
         {
             SkillMove.Dash();
+            inCooldownDash = true;
+            Invoke("CooldownDashFinished", dashCooldown);
         }
     }
 
@@ -210,6 +215,11 @@ public class PlayerController : MonoBehaviour {
     private void CooldownGlobalFinished()
     {
         inCooldownGlobal = false;
+    }
+
+    private void CooldownDashFinished()
+    {
+        inCooldownDash = false;
     }
 
     /// <summary>

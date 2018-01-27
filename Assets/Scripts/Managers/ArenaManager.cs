@@ -93,8 +93,6 @@ public class ArenaManager : MonoBehaviour
             spawns[i].transform.localPosition += Vector3.up * 0.01f;
 
             spawns[i].transform.RotateAround(Vector3.zero, Vector3.up, turnAngle * i);
-
-            // TODO Color
         }
     }
    
@@ -161,8 +159,4 @@ public class ArenaManager : MonoBehaviour
     {
         GameManager.instance.StopFight(winnerIndex);
     }
-
-    #region Skill management
-    
-    #endregion
 }

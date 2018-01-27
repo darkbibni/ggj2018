@@ -94,7 +94,10 @@ public class SkillsUI : MonoBehaviour {
 
     public void UpdateCurrentAndNext(int skillId, bool currentEnable, bool nextEnable)
     {
-        noSkills[skillId] = !currentEnable;
+        if(noSkills.Length > 0)
+        {
+            noSkills[skillId] = !currentEnable;
+        }
 
         currentSkillImgs[skillId].material.SetFloat("_Offset", currentEnable ? 0f : 1f);
         nextSkillImgs[skillId].material.SetFloat("_Offset", nextEnable ? 0f : 1f);

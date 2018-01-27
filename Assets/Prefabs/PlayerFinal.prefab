@@ -242,7 +242,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680234757912230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4549978734006136}
@@ -573,12 +573,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4d101c2a222c646bf19c9bc5b6b027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  durationOfTransmition: 0.5
   playerId: 0
   SkillMove: {fileID: 0}
   modelTransform: {fileID: 4455896798926150}
   TrailList:
   - {fileID: 1399680954212582}
   - {fileID: 1404067890111906}
+  cooldownA: 1
+  cooldownB: 1
+  cooldownX: 2
+  cooldownY: 5
+  globalCooldown: 0.3
 --- !u!114 &114943502865492758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -590,8 +596,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b9cc1702096854e8d4f0701d09c40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 200
-  DashLength: 4
+  MoveSpeed: 250
+  DashLength: 8
   DashTime: 0.2
   StunBall: {fileID: 1680234757912230}
   DashParticles: {fileID: 198012042149965590}
