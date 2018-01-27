@@ -14,7 +14,12 @@ public class Gun_Skill : Skill
 
     public override void Execute()
     {
-        
+        base.Execute();
+
+        GameObject bullet = Instantiate(data.Gun_ProjectilePrefab, transform.position, transform.rotation);
+        bullet.GetComponent<Gun_Projectile>().skill = this;
+
+        bullet.GetComponent<Rigidbody>().velocity = transform.forward * data.speed;
     }
 
     public override void Init(){

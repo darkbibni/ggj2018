@@ -15,6 +15,32 @@ public abstract class Skill : MonoBehaviour {
 	public SkillButton eButton;
 	public bool isActive = false;
 	public float cooldown;
-	public abstract void Execute();
-	public abstract void Init();
+
+    protected bool inCooldown;
+
+    public abstract void Init();
+    public virtual void Execute()
+    {
+        if(inCooldown || isActive)
+        {
+            return;
+        }
+
+        isActive = true;
+        inCooldown = true;
+
+        // TODO update an UI.
+
+        Invoke("CooldownFinished", cooldown);
+    }
+
+    private void CooldownFinished()
+    {
+        inCooldown = false;
+    }
+
+    public void End()
+    {
+        isActive = false;
+    }
 }
