@@ -5,7 +5,9 @@ using Rewired;
 using DG.Tweening;
 
 public class PlayerController : MonoBehaviour {
-    
+
+    public float durationOfTransmition = 0.5f;
+
     public int playerId = 0;
     private Player _player = null;
 
@@ -171,7 +173,28 @@ public class PlayerController : MonoBehaviour {
         }
 
         GameObject transmition = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        transmition.transform.position = transform.position;
-        transmition.transform.DOMove(pc.transform.position, 0.5f);
+        Destroy(transmition.GetComponent<Collider>());
+
+        StartCoroutine(TransmitCoroutine(transform.position, pc.transform, transmition, durationOfTransmition));
+    }
+
+    IEnumerator TransmitCoroutine(Vector3 from, Transform to, GameObject obj, float duration)
+    {
+        float timer = 0.0f;
+        Transform trsf = obj.transform;
+        if(duration != 0.0f)
+        {
+            float div = 1 / duration;
+
+            while (timer < duration)
+            {
+                trsf.position = Vector3.Lerp(from, to.position, timer * div);
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            
+        }
+
+        Destroy(obj);
     }
 }
