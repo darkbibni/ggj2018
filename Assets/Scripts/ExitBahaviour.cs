@@ -12,7 +12,7 @@ public class ExitBahaviour : MonoBehaviour {
         // other.GetComponent<>()
 
         // Get player and check if he has no abilities.
-        if (true)
+        if (false)
         {
             // TODO get player index.
 

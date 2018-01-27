@@ -10,9 +10,7 @@ public enum GameStates
 }
 
 public class GameManager : MonoBehaviour {
-
-    private int numberOfPlayers = 0;
-
+    
     public static GameManager instance;
 
     public GameStates GameState
@@ -36,18 +34,45 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
+
+        ResetGame();
     }
 
-    
-    public void StartFight()
+    public bool JoinFight(int playerIndex) {
+        
+        bool join = arenaMgr.AddPlayer(playerIndex);
+
+        return join;
+    }
+
+    public bool QuitFight(int playerIndex)
     {
-        gameState = GameStates.FIGHT;
+        bool quit = arenaMgr.RemovePlayer(playerIndex);
+
+        return quit;
+    }
+    
+    public bool StartFight()
+    {
+        if(arenaMgr.CanStartFight)
+        {
+            gameState = GameStates.FIGHT;
+
+            arenaMgr.SetupSpawns();
+
+            // TODO COROUTINE ! TRANSITION --> countdown 3 2 1 GO !
+            arenaMgr.SpawnCharacters();
+
+            return true;
+        }
+
+        return false;
     }
 
     public void ResetGame()
     {
-        numberOfPlayers = 0;
         gameState = GameStates.SETUP;
+        arenaMgr.ResetArena();
     }
 
     public void StopFight()

@@ -3,7 +3,7 @@ using Rewired;
 using UnityEngine;
 
 public class PlayerInputManager : MonoBehaviour {
-
+    
     public int playerId = 1;
     private Player _player;
 
@@ -20,6 +20,12 @@ public class PlayerInputManager : MonoBehaviour {
     void Awake()
     {
         SkillMove = GetComponent<CharacterMovement>();
+        _player = null;
+    }
+
+    public void SetupPlayer(int playerIndex)
+    {
+        playerId = playerIndex;
         _player = ReInput.players.GetPlayer(playerId);
     }
 
@@ -31,29 +37,14 @@ public class PlayerInputManager : MonoBehaviour {
     }
     void Update()
     {
-        switch (GameManager.instance.GameState)
+        if(_player == null)
         {
-            case GameStates.SETUP:
-                HandleSetupInput();
-                break;
-
-            case GameStates.FIGHT:
-                HandleFightInput();
-                break;
-
-            case GameStates.END:
-                HandleEndInput();
-                break;
+            return;
         }
-    }
 
-    private void HandleSetupInput()
-    {
-        if (_player.GetButtonDown("A"))
+        if(GameManager.instance.GameState == GameStates.FIGHT)
         {
-            Debug.Log("START FIGHT");
-
-            GameManager.instance.StartFight();
+            HandleFightInput();
         }
     }
 
@@ -100,15 +91,4 @@ public class PlayerInputManager : MonoBehaviour {
             SkillMove.Dash();
         }
     }
-
-    private void HandleEndInpout()
-    {
-        if (_player.GetButtonDown("A"))
-        {
-            Debug.Log("RESET");
-
-            GameManager.instance.ResetGame();
-        }
-    }
-	
 }

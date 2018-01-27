@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class ArenaManager : MonoBehaviour
 {
@@ -6,25 +8,64 @@ public class ArenaManager : MonoBehaviour
     public Transform charactersParent;
 
     public GameObject SpawnPrefab;
-
     public GameObject characterPrefab;
 
-    private GameObject[] spawns;
+    private List<int> playersIndex = new List<int>();
+    public bool CanStartFight
+    {
+        get { return playersIndex.Count > 1; }
+    }
 
+    private GameObject[] spawns;
+    
     private void Awake()
     {
         
+    }
+
+    public void ResetArena()
+    {
+        playersIndex.Clear();
+
+        if(spawns != null)
+        {
+            foreach (GameObject spawn in spawns)
+            {
+                Destroy(spawn);
+            }
+        }
+    }
+
+    public bool AddPlayer(int playerIndex)
+    {
+        if(!playersIndex.Contains(playerIndex))
+        {
+            playersIndex.Add(playerIndex);
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool RemovePlayer(int playerIndex)
+    {
+        if (playersIndex.Contains(playerIndex))
+        {
+            playersIndex.Remove(playerIndex);
+            return true;
+        }
+
+        return false;
     }
 
     /// <summary>
     /// Setup a certain amount of spawns.
     /// </summary>
     /// <param name="numberOfPlayers"></param>
-    public void SetupSpawns(int numberOfPlayers)
+    public void SetupSpawns()
     {
-        // TODO Spawn as much characters as numbers of players.
-
-        spawns = new GameObject[numberOfPlayers];
+        // Setup spawns
+        spawns = new GameObject[playersIndex.Count];
 
         float turnAngle = 360f / spawns.Length;
 
@@ -42,12 +83,15 @@ public class ArenaManager : MonoBehaviour
     /// <param name="numberOfPlayers"></param>
     public void SpawnCharacters()
     {
-        foreach(GameObject spawn in spawns)
+        for (int i = 0; i < spawns.Length; i++)
         {
-            GameObject character = Instantiate(characterPrefab, spawn.transform.position, Quaternion.identity, charactersParent);
-
+            GameObject character = Instantiate(characterPrefab, spawns[i].transform.position, Quaternion.identity, charactersParent);
+            
             // Orientate to exit.
             character.transform.LookAt(Vector3.zero);
+
+            PlayerInputManager playerInput = character.GetComponent<PlayerInputManager>();
+            playerInput.SetupPlayer(i);
         }
     }
 
