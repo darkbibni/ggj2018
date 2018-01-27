@@ -6,9 +6,11 @@ using DG.Tweening;
 public class Slash_Skill : Skill {
 
 	private Slash_Data data;
+	private bool transmitted = false;
 	GameObject instanceSlash;
 
-	public override void Init(){
+	public override void Init(PlayerController pc){
+		playerController = pc;
 		data = SkillManager.instance.slash_data;
 		eButton = data.eButton;
 		instanceSlash = Instantiate(data.SlashGameObject);
@@ -30,8 +32,12 @@ public class Slash_Skill : Skill {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(gameObject.activeSelf && other.tag == "Player"){
-			Debug.Log("Enemy touched");
+		if(gameObject.activeSelf && other.tag == "Player" && !transmitted){
+			transmitted = true;
+			PlayerController pc = other.GetComponent<PlayerController>();
+			pc.AddSkill(this);
+			playerController.RemoveSkill(this, eButton);
+			Destroy(this);
 		}
 	}
 

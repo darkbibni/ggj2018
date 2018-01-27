@@ -8,10 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7336f82bae00b3547afd6a755b6b2059, type: 3}
-  m_Name: Gun_Data
+  m_Script: {fileID: 11500000, guid: 4357d30d940a6524589c78685630188e, type: 3}
+  m_Name: Stomp_Data
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  Gun_ProjectilePrefab: {fileID: 1233574093258004, guid: 2d259066daab1134f8727b0a7621fd57,
+  StompGameObject: {fileID: 1127917411917138, guid: 2c5a3181944632345aab1b0e93e060ca,
     type: 2}
-  speed: 20
+  HitSpeed: 0.2
+  eButton: 2

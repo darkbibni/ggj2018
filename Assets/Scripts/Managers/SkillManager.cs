@@ -5,10 +5,13 @@ public class SkillManager : MonoBehaviour {
 
     public static SkillManager instance;
     
+    [Header("Datas")]
     public Gun_Data gun_data;
 
     public Slash_Data slash_data;
     
+    public Stomp_Data stomp_data;
+
     [Header("Arrays of skills")]
     // CAC - DIST
     public List<Skill> skillsA = new List<Skill>();
@@ -19,6 +22,17 @@ public class SkillManager : MonoBehaviour {
 
     // ULTIMATE
     public List<Skill> skillsY = new List<Skill>();
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
 
     /// <summary>
     /// Generate a copy of a list of skills depending the number of players.
@@ -39,16 +53,5 @@ public class SkillManager : MonoBehaviour {
         }
 
         return skills;
-    }
-
-    private void Awake()
-    {
-        if(instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        instance = this;
     }
 }
