@@ -8,15 +8,18 @@ public class CharacterMovement : MonoBehaviour {
     public float MoveSpeed = 1f;
     public float DashLength = 3f;
     public float DashTime = 0.2f;
+    
     public GameObject StunBall;
     private Rigidbody _rb;
-    private bool isDashing = false;
+    private BoxCollider _collider;
 
+    private bool isDashing = false;
     private bool isStun = false;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _collider = GetComponent<BoxCollider>();
     }
 
     public void Move(float x, float y){
@@ -35,9 +38,11 @@ public class CharacterMovement : MonoBehaviour {
             if(Physics.Raycast(transform.position, transform.forward, out hit, DashLength)){
                 target = Vector3.Lerp(transform.position, hit.point, 0.75f);
             }
-
+            
+            _collider.enabled = false;
             _rb.DOMove(target, DashTime).OnComplete(()=>{
                 isDashing = false;
+                _collider.enabled = true;
                 _rb.velocity = Vector3.zero;
             });
         }
