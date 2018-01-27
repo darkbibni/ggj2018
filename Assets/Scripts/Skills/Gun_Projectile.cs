@@ -25,7 +25,8 @@ public class Gun_Projectile : MonoBehaviour {
                     Destroy(gameObject);
                 }
             }
-            else
+
+            else if(!(other.tag == "Ground" || other.tag =="Exit"))
             {
                 skill.End();
                 isActive = false;

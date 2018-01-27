@@ -57,7 +57,7 @@ public class PlayersInputManager : MonoBehaviour {
         {
             if (GameManager.instance.StartFight())
             {
-                Debug.Log("START !");
+                // TODO FEEDBACK START
             }
         }
     }

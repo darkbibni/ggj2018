@@ -22,7 +22,9 @@ public class Missile_Skill : Skill {
 		instanceMissile.transform.localPosition = Vector3.zero;
 		instanceMissile.transform.localRotation =  Quaternion.Euler(Vector3.zero);
 	}
-	public override void Execute(){
+
+	public override void Execute(List<Skill> _skillsToRemove)
+    {
 		if(!isActive){
 			ShowPlayer(false);
 			instanceMissile.SetActive(true);
@@ -38,15 +40,19 @@ public class Missile_Skill : Skill {
 
 	void OnTriggerEnter(Collider other)
 	{
+        if(other.tag == "Ground" || other.tag == "Exit")
+        {
+            return;
+        }
+
 		if(gameObject.activeSelf && other.tag == "Player" && other.transform != transform && !transmitted){
 			transmitted = true;
 			ShowPlayer(true);
 			instanceMissile.SetActive(false);
-			PlayerController pc = other.GetComponent<PlayerController>();
-			pc.AddSkill(this);
-			pc.SkillMove.Stun(2.0f);
-			playerController.RemoveSkill(this, eButton);
-			Destroy(this);
+			PlayerController enemy = other.GetComponent<PlayerController>();
+            enemy.SkillMove.Stun(2.0f);
+            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+            Destroy(this);
 		}else{
 			ShowPlayer(true);
 			instanceMissile.SetActive(false);

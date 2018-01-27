@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 33805482358376184}
   - component: {fileID: 136385155372898096}
   - component: {fileID: 23890889131546196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
