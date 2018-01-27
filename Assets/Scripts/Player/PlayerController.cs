@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector]
     public CharacterMovement SkillMove;
 
+    public UiManager uiMgr;
+
     private List<Skill> SkillA = new List<Skill>();
     private List<Skill> SkillB = new List<Skill>();
     private List<Skill> SkillX = new List<Skill>();
@@ -77,21 +79,29 @@ public class PlayerController : MonoBehaviour {
             if (_player.GetButtonDown("A"))
             {
                 UseSkillList(ref SkillA);
+
+                GameManager.instance.uiMgr.UseSkill(playerId, 0);
             }
 
             if (_player.GetButtonDown("B"))
             {
                 UseSkillList(ref SkillB);
+
+                GameManager.instance.uiMgr.UseSkill(playerId, 1);
             }
 
             if (_player.GetButtonDown("X"))
             {
                 UseSkillList(ref SkillX);
+
+                GameManager.instance.uiMgr.UseSkill(playerId, 2);
             }
 
             if (_player.GetButtonDown("Y"))
             {
                 UseSkillList(ref SkillY);
+
+                GameManager.instance.uiMgr.UseSkill(playerId, 3);
             }
 
             if (_player.GetButtonDown("Dash"))

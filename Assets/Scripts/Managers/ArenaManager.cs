@@ -14,6 +14,10 @@ public class ArenaManager : MonoBehaviour
     {
         get { return playersIndex.Count > 1; }
     }
+    public int PlayerCount
+    {
+        get { return playersIndex.Count; }
+    }
 
     private GameObject[] spawns;
 

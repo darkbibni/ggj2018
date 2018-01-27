@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Rewired;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,9 @@ public class UiManager : MonoBehaviour {
 
     [Header("Fight UI")]
     public GameObject fightPanel;
+    public GameObject[] playerInputs;
+    public SkillsUI[] playerSkillsUI;
+
     // TODO actions for each player.
     // FEEDBACK the "UNO" player on UI
 
@@ -29,7 +33,6 @@ public class UiManager : MonoBehaviour {
 
     private void Awake()
     {
-
     }
 
     public void SetPlayerReady(int playerId, bool ready)
@@ -64,9 +67,14 @@ public class UiManager : MonoBehaviour {
         SetCurrentPanel(setupPanel);
     }
 
-    public void DisplayFightPanel()
+    public void DisplayFightPanel(int playerCount)
     {
-        SetCurrentPanel(null);
+        SetCurrentPanel(fightPanel);
+
+        for (int i = 0; i < 4; i++)
+        {
+            playerInputs[i].SetActive(i < playerCount ? true : false);
+        }
     }
 
     public void DisplayEndPanel(int winnerId)
@@ -74,5 +82,20 @@ public class UiManager : MonoBehaviour {
         SetCurrentPanel(endPanel);
 
         winnerText.text = "Player " + winnerId.ToString() +" wins !";
+    }
+
+    public void UseSkill(int playerId, int skillId)
+    {
+        playerSkillsUI[playerId].PressMainSkill(skillId);
+    }
+
+    public void AddSkillFeedback(int playerId, int skillId)
+    {
+
+    }
+
+    public void RemoveSkillFeedback(int playerId, int skillId)
+    {
+
     }
 }
