@@ -10,6 +10,7 @@ public class SkillManager : MonoBehaviour {
     public Gun_Data gun_data;
 
     public Slash_Data slash_data;
+    public Stomp_Data stomp_data;
 
     private void Awake()
     {

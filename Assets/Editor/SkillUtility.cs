@@ -16,4 +16,10 @@ public class SkillUtility : MonoBehaviour {
     {
         ScriptableObjectUtility.CreateAsset<Slash_Data>("/Data", "Slash_Data");
     }
+
+    [MenuItem("Assets/Create/ScriptableObjects/Stomp_Data")]
+    public static void CreateStompDataAsset()
+    {
+        ScriptableObjectUtility.CreateAsset<Stomp_Data>();
+    }
 }
