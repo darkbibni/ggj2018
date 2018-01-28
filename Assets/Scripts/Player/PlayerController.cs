@@ -181,7 +181,8 @@ public class PlayerController : MonoBehaviour {
                 Invoke("CooldownGlobalFinished", globalCooldown);
             }
         }
-        else if (!SkillMove.IsStun() && _player.GetButtonDown("Dash"))
+
+        if (!SkillMove.IsStun() && _player.GetButtonDown("Dash"))
         {
             SkillMove.Dash();
         }
@@ -190,7 +191,6 @@ public class PlayerController : MonoBehaviour {
     private void CooldownAFinished()
     {
         inCooldownA = false;
-        Debug.Log("COOLDOWN FINISHES !");
     }
 
     private void CooldownBFinished()
@@ -201,7 +201,6 @@ public class PlayerController : MonoBehaviour {
     private void CooldownXFinished()
     {
         inCooldownX = false;
-        Debug.Log("COOLDOWN FINISHES !");
     }
 
     private void CooldownYFinished()

@@ -25,8 +25,8 @@ GameObject:
   - component: {fileID: 54372404528812724}
   - component: {fileID: 114237115672666904}
   - component: {fileID: 114390120337166052}
-  - component: {fileID: 114266658051801174}
-  m_Layer: 0
+  - component: {fileID: 114933601639498418}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 33065012294887962}
   - component: {fileID: 135355005214892860}
   - component: {fileID: 23909715143668850}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 33870886099877460}
   - component: {fileID: 135885400156034040}
   - component: {fileID: 23921112743663882}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 4333212117357862}
   - component: {fileID: 198873467744110052}
   - component: {fileID: 199272934736449044}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle dash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4552968889862710}
   - component: {fileID: 96325419035417966}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4473876359297784}
   - component: {fileID: 114655876140075908}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StunBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 33921985920859058}
   - component: {fileID: 135261132617295400}
   - component: {fileID: 23909266371820216}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 4502027816514326}
   - component: {fileID: 33491707833545776}
   - component: {fileID: 23338820568909188}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,24 +600,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4d101c2a222c646bf19c9bc5b6b027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  durationOfTransmition: 0.5
   playerId: 0
   SkillMove: {fileID: 0}
+  modelTransform: {fileID: 0}
   TrailList:
   - {fileID: 1980606478528444}
   - {fileID: 1863107809716924}
   - {fileID: 1706053715336424}
---- !u!114 &114266658051801174
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1030711296124664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 950719a5bb6d06b4f8f4f814c5ec203b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 2
+  cooldownA: 1
+  cooldownB: 1
+  cooldownX: 2
+  cooldownY: 5
+  globalCooldown: 0.3
 --- !u!114 &114390120337166052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -646,6 +641,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationSpeed: 5
+--- !u!114 &114933601639498418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030711296124664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 950719a5bb6d06b4f8f4f814c5ec203b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 4
 --- !u!135 &135261132617295400
 SphereCollider:
   m_ObjectHideFlags: 1

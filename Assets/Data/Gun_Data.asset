@@ -15,5 +15,4 @@ MonoBehaviour:
   Gun_ProjectilePrefab: {fileID: 1233574093258004, guid: 2d259066daab1134f8727b0a7621fd57,
     type: 2}
   speed: 1000
-  cooldown: 2
-  eButton: 3
+  eButton: 0
