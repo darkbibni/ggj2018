@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 114122823597982822}
   - component: {fileID: 114943502865492758}
   - component: {fileID: 135483466006313822}
+  - component: {fileID: 82878869746226106}
   m_Layer: 0
   m_Name: PlayerFinal
   m_TagString: Player
@@ -242,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680234757912230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4549978734006136}
@@ -463,12 +464,93 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!82 &82878869746226106
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1656272016558584}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243392439984420656, guid: 0e07f0297bb0e1744ba97e976707636f,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.35
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!96 &96109496014164122
 TrailRenderer:
   serializedVersion: 2
@@ -573,12 +655,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4d101c2a222c646bf19c9bc5b6b027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  durationOfTransmition: 0.5
   playerId: 0
   SkillMove: {fileID: 0}
   modelTransform: {fileID: 4455896798926150}
   TrailList:
   - {fileID: 1399680954212582}
   - {fileID: 1404067890111906}
+  audioSource: {fileID: 0}
+  cooldownA: 1
+  cooldownB: 1
+  cooldownX: 2
+  cooldownY: 5
+  globalCooldown: 0.3
+  dashCooldown: 0.5
 --- !u!114 &114943502865492758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -590,9 +680,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b9cc1702096854e8d4f0701d09c40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 200
-  DashLength: 4
+  MoveSpeed: 250
+  DashLength: 8
   DashTime: 0.2
+  maxSpeed: 4
+  canMove: 1
   StunBall: {fileID: 1680234757912230}
   DashParticles: {fileID: 198012042149965590}
 --- !u!114 &114960375399381144

@@ -7,20 +7,25 @@ public class Stomp_Skill : Skill {
 
 	private Stomp_Data data;
 	GameObject instanceStomp;
+    GameObject stompVfx;
+
+    public float stunDuration = 0.5f;
 
 	public override void Init(PlayerController pc){
-		playerController = pc;
+		caster = pc;
 		data = SkillManager.instance.stomp_data;
 		eButton = data.eButton;
-		instanceStomp = Instantiate(data.StompGameObject);
+        stompVfx = data.StompVfx;
+
+        instanceStomp = Instantiate(data.StompGameObject);
 		instanceStomp.transform.parent = transform;
 		instanceStomp.transform.localPosition = Vector3.zero;
 		instanceStomp.transform.localRotation =  Quaternion.Euler(Vector3.zero);
 	}
+
 	public override void Execute(List<Skill> _skillsToRemove)
     {
-
-        if (inCooldown || isActive)
+        if (isActive)
         {
             return;
         }
@@ -30,23 +35,31 @@ public class Stomp_Skill : Skill {
 		instanceStomp.transform.localRotation = Quaternion.Euler(-20f, 0f, 0f);
 		instanceStomp.SetActive(true);
 		instanceStomp.transform.DOLocalRotate(new Vector3(90f, 0f, 0f), data.HitSpeed).OnComplete(()=>{
+            AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("Hammer"), caster.audioSource);
 			instanceStomp.SetActive(false);
+            SpawnHammerEffect(transform.position + transform.forward * 2f);
             End();
         });
-		
-	}
+    }
 
 	void OnTriggerEnter(Collider other)
     {
         if (isActive && other.tag == "Player" && other.transform != transform && !isTransmitted){
 			isTransmitted = true;
 			PlayerController enemy = other.GetComponent<PlayerController>();
-            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+            enemy.SkillMove.Stun(stunDuration);
+            caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
             Destroy(this);
 		}
 	}
 
-	void OnDestroy()
+    private void SpawnHammerEffect(Vector3 pos)
+    {
+        GameObject vfx = Instantiate(stompVfx, pos, stompVfx.transform.rotation);
+        Destroy(vfx, 5f);
+    }
+
+    void OnDestroy()
 	{
 		Destroy(instanceStomp);
 	}

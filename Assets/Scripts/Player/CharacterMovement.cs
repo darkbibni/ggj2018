@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class CharacterMovement : MonoBehaviour {
 
@@ -9,27 +10,39 @@ public class CharacterMovement : MonoBehaviour {
     public float DashLength = 3f;
     public float DashTime = 0.2f;
     
+    public float maxSpeed = 4f;
+
+    public float SpeedMultiplicator
+    {
+        get { return speedMultiplicator; }
+        set { speedMultiplicator = Mathf.Min(value, maxSpeed); }
+    }
+    private float speedMultiplicator = 1f;
+    public bool canMove = true;
+    
     public GameObject StunBall;
     public ParticleSystem DashParticles;
     private Rigidbody _rb;
-    private BoxCollider _collider;
+    private Collider _collider;
+    private AudioSource _src;
     private ParticleSystem.EmissionModule _emission;
 
     private bool isDashing = false;
     private bool isStun = false;
 
-    private bool isMissile = false;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _collider = GetComponent<BoxCollider>();
+        _collider = GetComponent<Collider>();
         _emission = DashParticles.emission;
+        _src = GetComponent<AudioSource>();
     }
 
     public void Move(float x, float y){
-        if(!isStun){
-            _rb.MovePosition(_rb.position + (x * Vector3.right * MoveSpeed/1000f) + (y * Vector3.forward * MoveSpeed/1000f));
+
+        if (!isStun && canMove) {
+            _rb.MovePosition(_rb.position + ((x * Vector3.right) + (y * Vector3.forward)) * MoveSpeed * speedMultiplicator * Time.deltaTime/20f);
             _rb.MoveRotation(Quaternion.LookRotation(new Vector3(x, 0f, y)));
         }
 
@@ -43,12 +56,17 @@ public class CharacterMovement : MonoBehaviour {
             Vector3 target = _rb.position + transform.forward * DashLength;
             RaycastHit hit = new RaycastHit();
             if(Physics.Raycast(transform.position, transform.forward, out hit, DashLength)){
-                target = Vector3.Lerp(transform.position, hit.point, 0.75f);
+
+                if(!hit.collider.CompareTag("Exit"))
+                {
+                    target = Vector3.Lerp(transform.position, hit.point, 0.75f);
+                }
             }
             
             _collider.enabled = false;
             var col = DashParticles.colorOverLifetime.color;
             col.colorMin = Color.red;
+            AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("Dash"), _src);
             _rb.DOMove(target, DashTime).OnComplete(()=>{
                 isDashing = false;
                 _collider.enabled = true;
@@ -62,15 +80,28 @@ public class CharacterMovement : MonoBehaviour {
         StartCoroutine(StunCoroutine(duration));
     }
 
+    public void KnockBack(Vector3 dir, float strength)
+    {
+        _rb.AddForce(dir * strength, ForceMode.Impulse);
+
+        Invoke("StopKnockBack", 0.2f);
+    }
+
+    private void StopKnockBack()
+    {
+        _rb.velocity = Vector3.zero;
+    }
+
     IEnumerator StunCoroutine (float duration){
+        AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("Stun"), _src);
         StunBall.SetActive(true);
         yield return new WaitForSeconds(duration);
         StunBall.SetActive(false);
+        _src.Stop();
         isStun = false;
     }
 
     public bool IsStun(){
         return isStun;
     }
-
 }

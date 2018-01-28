@@ -1,22 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class Gun_Skill : Skill
 {
     private Gun_Data data;
     private GameObject bullet;
+    private GameObject shootVfx;
     
     public override void Execute(List<Skill> _skillsToRemove)
     {
-        if (inCooldown || isActive)
+        if (isActive)
         {
             return;
         }
 
         base.Execute(_skillsToRemove);
-
+        caster.audioSource.PlayOneShot(AudioManager.singleton.GetSFXclip("GunShot"));
         bullet = Instantiate(data.Gun_ProjectilePrefab);
         bullet.transform.position = transform.position;
         bullet.transform.eulerAngles = new Vector3(90, transform.eulerAngles.y, 0);
@@ -24,20 +24,26 @@ public class Gun_Skill : Skill
         bullet.GetComponent<Gun_Projectile>().skill = this;
 
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * data.speed);
+
+        GameObject vfx = Instantiate(shootVfx, transform.position + transform.forward * 1.5f, transform.rotation);
+        Destroy(vfx, 3f);
     }
 
     public override void Init(PlayerController pc){
-        playerController = pc;
+        caster = pc;
         data = SkillManager.instance.gun_data;
-        cooldown = data.cooldown;
+        shootVfx = data.shootVfx;
     }
 
-    public void EnemyTouched(PlayerController enemy)
+    public void EnemyTouched(PlayerController enemy, Vector3 bulletDir)
     {
+        enemy.SkillMove.KnockBack(bulletDir, 10f);
+        enemy.SkillMove.Stun(0.25f);
+
         if (!isTransmitted)
         {
             isTransmitted = true;
-            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+            caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
             Destroy(this);
         }
     }

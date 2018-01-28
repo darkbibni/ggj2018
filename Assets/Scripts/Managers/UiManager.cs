@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Rewired;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UiManager : MonoBehaviour {
     
@@ -17,10 +18,14 @@ public class UiManager : MonoBehaviour {
     public Sprite joinSprite;
     public string joinText = "to join";
 
+    public GameObject countdownPanel;
+    public TextMeshProUGUI countdownValue;
+
     [Header("Fight UI")]
     public GameObject fightPanel;
     public GameObject[] playerInputs;
     public SkillsUI[] playerSkillsUI;
+    public Animator[] playerSkillAnims;
 
     // TODO actions for each player.
     // FEEDBACK the "UNO" player on UI
@@ -33,6 +38,14 @@ public class UiManager : MonoBehaviour {
 
     private void Awake()
     {
+    }
+
+    public void ResetUI()
+    {
+        foreach(SkillsUI ui in playerSkillsUI)
+        {
+            ui.ResetSkillUi();
+        }
     }
 
     public void SetPlayerReady(int playerId, bool ready)
@@ -81,12 +94,19 @@ public class UiManager : MonoBehaviour {
     {
         SetCurrentPanel(endPanel);
 
+        winnerText.color = GameManager.instance.playerColors[winnerId];
+
         winnerText.text = "Player " + (winnerId+1) +" wins !";
     }
 
     public void UseSkill(int playerId, int skillId)
     {
         playerSkillsUI[playerId].PressMainSkill(skillId);
+    }
+
+    public void FeedbackCooldown(int playerId, int skillId, float cooldown)
+    {
+        playerSkillsUI[playerId].TriggerCooldown(skillId, cooldown);
     }
 
     public void AddSkillFeedback(int playerId, int skillId)
@@ -97,5 +117,15 @@ public class UiManager : MonoBehaviour {
     public void RemoveSkillFeedback(int playerId, int skillId)
     {
 
+    }
+
+    public void EnableCountDown(bool enable)
+    {
+        countdownPanel.SetActive(enable);
+    }
+
+    public void UpdateCountDown(string newText)
+    {
+        countdownValue.text = newText;
     }
 }

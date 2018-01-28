@@ -5,7 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class Missile_Data : ScriptableObject
 {
+    public Sprite sprite;
     public GameObject MissileGameObject;
+    public GameObject explosionVfx;
 	public float MoveSpeed = 50f;
 	public float AngleSpeed = 25f;
 	public SkillButton eButton = SkillButton.Y;

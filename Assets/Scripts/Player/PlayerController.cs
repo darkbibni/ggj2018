@@ -17,6 +17,22 @@ public class PlayerController : MonoBehaviour {
     public Transform modelTransform;
 
     public List<GameObject> TrailList = new List<GameObject>();
+    public AudioSource audioSource;
+    
+    public float cooldownA = 1;
+    public float cooldownB = 1;
+    public float cooldownX = 2;
+    public float cooldownY = 5;
+    public float globalCooldown = 0.3f;
+
+    public float dashCooldown = 0.5f;
+    
+    private bool inCooldownA = false;
+    private bool inCooldownB = false;
+    private bool inCooldownX = false;
+    private bool inCooldownY = false;
+    private bool inCooldownGlobal = false;
+    private bool inCooldownDash = false;
 
     private List<Skill> SkillA = new List<Skill>();
     private List<Skill> SkillB = new List<Skill>();
@@ -26,6 +42,8 @@ public class PlayerController : MonoBehaviour {
     private float moveX = 0.0f;
     private float moveY = 0.0f;
 
+    private GameObject highlightVfx;
+
     public bool IsEmpty {
         get
         {
@@ -33,9 +51,18 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private bool isHighligted;
+
     void Awake()
     {
         SkillMove = GetComponent<CharacterMovement>();
+
+        if(GameManager.instance == null)
+        {
+            _player = ReInput.players.GetPlayer(playerId);
+        }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void ShowTrails(bool value){
@@ -56,6 +83,8 @@ public class PlayerController : MonoBehaviour {
         this.playerId = playerId;
         _player = ReInput.players.GetPlayer(playerId);
         Instantiate(GameManager.instance.characterPrefabs[playerId], modelTransform);
+        highlightVfx = Instantiate(GameManager.instance.highlightVfx[playerId], transform);
+        highlightVfx.SetActive(false);
     }
 
     void Update()
@@ -85,46 +114,124 @@ public class PlayerController : MonoBehaviour {
 
         moveY = _player.GetAxis("Vertical");
 
-        if (!SkillMove.IsStun())
+        if (!SkillMove.IsStun() && !inCooldownGlobal)
         {
-            if (_player.GetButtonDown("A"))
+            bool isUse = false;
+
+            if (_player.GetButtonDown("A") && !inCooldownA)
             {
                 if (UseSkillList(ref SkillA))
                 {
-                    GameManager.instance.uiMgr.UseSkill(playerId, 0);
+                    isUse = true;
+
+                    inCooldownA = true;
+                    Invoke("CooldownAFinished", cooldownA);
+
+                    if (GameManager.instance != null)
+                    {
+                        GameManager.instance.uiMgr.UseSkill(playerId, 0);
+                        GameManager.instance.uiMgr.FeedbackCooldown(playerId, 0, cooldownA);
+                    }
                 }
             }
 
-            if (_player.GetButtonDown("B"))
+            else if(_player.GetButtonDown("B") && !inCooldownB)
             {
                 if (UseSkillList(ref SkillB))
                 {
-                    GameManager.instance.uiMgr.UseSkill(playerId, 1);
+                    isUse = true;
+
+                    inCooldownB = true;
+                    Invoke("CooldownBFinished", cooldownB);
+
+                    if (GameManager.instance != null)
+                    {
+                        GameManager.instance.uiMgr.UseSkill(playerId, 1);
+                        GameManager.instance.uiMgr.FeedbackCooldown(playerId, 1, cooldownB);
+                    }
                 }
             }
 
-            if (_player.GetButtonDown("X"))
+            else if(_player.GetButtonDown("X") && !inCooldownX)
             {
                 if (UseSkillList(ref SkillX))
                 {
-                    GameManager.instance.uiMgr.UseSkill(playerId, 2);
+                    isUse = true;
+
+                    inCooldownX = true;
+                    Invoke("CooldownXFinished", cooldownX);
+
+                    if (GameManager.instance != null)
+                    {
+                        GameManager.instance.uiMgr.UseSkill(playerId, 2);
+                        GameManager.instance.uiMgr.FeedbackCooldown(playerId, 2, cooldownX);
+                    }
                 }
             }
 
-            if (_player.GetButtonDown("Y"))
+            else if (_player.GetButtonDown("Y") && !inCooldownY)
             {
                 if(UseSkillList(ref SkillY))
                 {
-                    GameManager.instance.uiMgr.UseSkill(playerId, 3);
-                }
-                
-            }
+                    isUse = true;
 
-            if (_player.GetButtonDown("Dash"))
+                    inCooldownY = true;
+                    Invoke("CooldownYFinished", cooldownY);
+
+                    if (GameManager.instance != null)
+                    {
+                        GameManager.instance.uiMgr.UseSkill(playerId, 3);
+                        GameManager.instance.uiMgr.FeedbackCooldown(playerId, 3, cooldownY);
+                    }
+                }
+            }
+            
+            if(isUse)
             {
-                SkillMove.Dash();
+                inCooldownGlobal = true;
+                Invoke("CooldownGlobalFinished", globalCooldown);
             }
         }
+
+        if(!isHighligted)
+        {
+            if (!SkillMove.IsStun() && _player.GetButtonDown("Dash") && !inCooldownDash)
+            {
+                SkillMove.Dash();
+                inCooldownDash = true;
+                Invoke("CooldownDashFinished", dashCooldown);
+            }
+        }
+    }
+
+    private void CooldownAFinished()
+    {
+        inCooldownA = false;
+    }
+
+    private void CooldownBFinished()
+    {
+        inCooldownB = false;
+    }
+
+    private void CooldownXFinished()
+    {
+        inCooldownX = false;
+    }
+
+    private void CooldownYFinished()
+    {
+        inCooldownY = false;
+    }
+
+    private void CooldownGlobalFinished()
+    {
+        inCooldownGlobal = false;
+    }
+
+    private void CooldownDashFinished()
+    {
+        inCooldownDash = false;
     }
 
     /// <summary>
@@ -153,15 +260,27 @@ public class PlayerController : MonoBehaviour {
         switch(sloc.eButton){
             case SkillButton.A : 
                 SkillA.Add(sloc);
+
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(0, SkillA.Count > 0, SkillA.Count > 1);
+
                 break;
             case SkillButton.B : 
                 SkillB.Add(sloc);
+
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(1, SkillB.Count > 0, SkillB.Count > 1);
+
                 break;
             case SkillButton.X : 
                 SkillX.Add(sloc);
+
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(2, SkillX.Count > 0, SkillX.Count > 1);
+
                 break;
-            case SkillButton.Y : 
+            case SkillButton.Y :
                 SkillY.Add(sloc);
+
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(3, SkillY.Count > 0, SkillY.Count > 1);
+
                 break;
         }
     }
@@ -177,6 +296,9 @@ public class PlayerController : MonoBehaviour {
                     pc.AddSkill(s);
                     s.HasBeenTransmitted();
                 }
+
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(0, false, false);
+
                 break;
             case SkillButton.B:
                 foreach (Skill s in skills)
@@ -185,6 +307,9 @@ public class PlayerController : MonoBehaviour {
                     pc.AddSkill(s);
                     s.HasBeenTransmitted();
                 }
+
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(1, false, false);
+
                 break;
             case SkillButton.X:
                 foreach (Skill s in skills)
@@ -193,6 +318,9 @@ public class PlayerController : MonoBehaviour {
                     SkillX.Remove(s);
                     s.HasBeenTransmitted();
                 }
+
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(2, false, false);
+
                 break;
             case SkillButton.Y:
                 foreach (Skill s in skills)
@@ -201,11 +329,31 @@ public class PlayerController : MonoBehaviour {
                     pc.AddSkill(s);
                     s.HasBeenTransmitted();
                 }
+
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(3, false, false);
+
                 break;
         }
 
-        GameObject transmition = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        GameObject transmition = Instantiate(GameManager.instance.transfertPrefabs[(int)sb]);
         Destroy(transmition.GetComponent<Collider>());
+
+        if(IsEmpty && !isHighligted)
+        {
+            AudioManager.singleton.PlaySFX(AudioManager.singleton.GetSFXclip("NoMoreSkills"));
+            GameManager.instance.arenaMgr.exitMgr.HighlightExit(playerId, true);
+            GameManager.instance.uiMgr.playerSkillAnims[playerId].SetBool("HasNoAbilities", true);
+            highlightVfx.SetActive(true);
+            isHighligted = true;
+        }
+
+        else if(!IsEmpty && isHighligted)
+        {
+            GameManager.instance.arenaMgr.exitMgr.HighlightExit(playerId, false);
+            GameManager.instance.uiMgr.playerSkillAnims[playerId].SetBool("HasNoAbilities", false);
+            highlightVfx.SetActive(false);
+            isHighligted = false;
+        }
 
         StartCoroutine(TransmitCoroutine(transform.position, pc.transform, transmition, durationOfTransmition));
     }

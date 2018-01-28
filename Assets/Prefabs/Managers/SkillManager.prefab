@@ -54,18 +54,23 @@ MonoBehaviour:
   gun_data: {fileID: 11400000, guid: 9cd1959ad6e45234b9040ce2a9c12da8, type: 2}
   slash_data: {fileID: 11400000, guid: 16db66ab0b9072546856202ac37ab573, type: 2}
   stomp_data: {fileID: 11400000, guid: 6feaf7c9d4b675046a368a9d44ea1f7d, type: 2}
-  missile_data: {fileID: 0}
+  missile_data: {fileID: 11400000, guid: 0ff41bd5c5f9d524ab62ecde99af3579, type: 2}
+  ray_data: {fileID: 11400000, guid: 0adf92f0e8d175e48a9e4704d814948b, type: 2}
   skillsA:
   - {fileID: 114141749165981406, guid: 918ba62f95f3f0a4f995e2a663cc301b, type: 2}
   - {fileID: 114141749165981406, guid: 918ba62f95f3f0a4f995e2a663cc301b, type: 2}
-  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
-  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
+  - {fileID: 114141749165981406, guid: 918ba62f95f3f0a4f995e2a663cc301b, type: 2}
+  - {fileID: 114141749165981406, guid: 918ba62f95f3f0a4f995e2a663cc301b, type: 2}
   skillsX:
   - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
   - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
-  - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
-  - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
-  skillsB: []
+  - {fileID: 114305173502664998, guid: 210270c3d2f318c4890a7d387e6ff4fe, type: 2}
+  - {fileID: 114305173502664998, guid: 210270c3d2f318c4890a7d387e6ff4fe, type: 2}
+  skillsB:
+  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
+  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
+  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
+  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
   skillsY:
   - {fileID: 114107670913700000, guid: 267bc83095ad6d743a18dcd22f8f022a, type: 2}
   - {fileID: 114107670913700000, guid: 267bc83095ad6d743a18dcd22f8f022a, type: 2}

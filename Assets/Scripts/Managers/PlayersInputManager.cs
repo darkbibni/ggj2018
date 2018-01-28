@@ -71,8 +71,6 @@ public class PlayersInputManager : MonoBehaviour {
             if (p.GetButtonDown("Pause"))
             {
                 GameManager.instance.ResetGame();
-
-                Debug.Log("RESTART !");
             }
         }
     }

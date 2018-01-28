@@ -12,35 +12,23 @@ public enum SkillButton{
 public abstract class Skill : MonoBehaviour {
 
     public SkillButton eButton;
-
-    protected PlayerController playerController;
-    protected float cooldown = 0;
+    
+    protected PlayerController caster;
     protected bool isActive = false;
     protected bool isTransmitted = false;
-    protected bool inCooldown = false;
     protected List<Skill> skillsToRemove;
 
     public abstract void Init(PlayerController pc);
     public virtual void Execute(List<Skill> _skillsToRemove)
     {
-        if(inCooldown || isActive)
+        if(isActive)
         {
             return;
         }
 
         isActive = true;
-        inCooldown = true;
 
         skillsToRemove = _skillsToRemove;
-
-        // TODO update an UI.
-
-        Invoke("CooldownFinished", cooldown);
-    }
-
-    private void CooldownFinished()
-    {
-        inCooldown = false;
     }
 
     public void End()

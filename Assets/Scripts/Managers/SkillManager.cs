@@ -14,6 +14,8 @@ public class SkillManager : MonoBehaviour {
 
     public Missile_Data missile_data;
 
+    public Ray_Data ray_data;
+
     [Header("Arrays of skills")]
     // CAC - DIST
     public List<Skill> skillsA = new List<Skill>();

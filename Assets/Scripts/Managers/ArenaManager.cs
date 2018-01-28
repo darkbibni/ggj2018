@@ -9,6 +9,8 @@ public class ArenaManager : MonoBehaviour
     public GameObject SpawnPrefab;
     public GameObject characterPrefab;
 
+    public ExitBehaviour exitMgr;
+
     private List<int> playersIndex = new List<int>();
     public bool CanStartFight
     {
@@ -93,8 +95,6 @@ public class ArenaManager : MonoBehaviour
             spawns[i].transform.localPosition += Vector3.up * 0.01f;
 
             spawns[i].transform.RotateAround(Vector3.zero, Vector3.up, turnAngle * i);
-
-            // TODO Color
         }
     }
    
@@ -112,6 +112,8 @@ public class ArenaManager : MonoBehaviour
         List<Skill> skillsB = SkillManager.instance.GenerateListOfSkills(SkillManager.instance.skillsB, spawns.Length);
         List<Skill> skillsY = SkillManager.instance.GenerateListOfSkills(SkillManager.instance.skillsY, spawns.Length);
 
+        playersIndex.Sort();
+
         for (int i = 0; i < spawns.Length; i++)
         {
             characters[i] = Instantiate(characterPrefab, spawns[i].transform.position + Vector3.up * characterPrefab.transform.position.y, Quaternion.identity, charactersParent);
@@ -120,7 +122,9 @@ public class ArenaManager : MonoBehaviour
             characters[i].transform.LookAt(Vector3.zero);
 
             PlayerController playerInput = characters[i].GetComponent<PlayerController>();
-            playerInput.SetupPlayer(i);
+
+            // Sort player by controllers.
+            playerInput.SetupPlayer(playersIndex[i]);
 
             // Add 4 skills to the character
             {
@@ -161,8 +165,4 @@ public class ArenaManager : MonoBehaviour
     {
         GameManager.instance.StopFight(winnerIndex);
     }
-
-    #region Skill management
-    
-    #endregion
 }

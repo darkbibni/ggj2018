@@ -9,7 +9,7 @@ public class Slash_Skill : Skill {
 	GameObject instanceSlash;
 
 	public override void Init(PlayerController pc){
-		playerController = pc;
+		caster = pc;
 		data = SkillManager.instance.slash_data;
 		eButton = data.eButton;
 		instanceSlash = Instantiate(data.SlashGameObject);
@@ -20,7 +20,7 @@ public class Slash_Skill : Skill {
 	public override void Execute(List<Skill> _skillsToRemove)
     {
 
-        if (inCooldown || isActive)
+        if (isActive)
         {
             return;
         }
@@ -29,6 +29,7 @@ public class Slash_Skill : Skill {
 
 		instanceSlash.transform.localRotation = Quaternion.Euler(0f, (data.Amplitude/2), 0f);
 		instanceSlash.SetActive(true);
+        AudioManager.singleton.PlayRandomize(AudioManager.singleton.GetSFXclip("Sword"), caster.audioSource);
 		instanceSlash.transform.DOLocalRotate(new Vector3(0f, -(data.Amplitude/2f), 0f), data.HitSpeed).OnComplete(()=>{
 			instanceSlash.SetActive(false);
             End();
@@ -39,8 +40,13 @@ public class Slash_Skill : Skill {
 	{
 		if(isActive && other.tag == "Player" && other.transform != transform && !isTransmitted){
 			isTransmitted = true;
+
 			PlayerController enemy = other.GetComponent<PlayerController>();
-            playerController.TransmitToEnemy(skillsToRemove, eButton, enemy);
+
+            // Effect on enemy
+            enemy.SkillMove.KnockBack(transform.forward, 20f);
+
+            caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
             Destroy(this);
 		}
     }
