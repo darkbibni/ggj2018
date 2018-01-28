@@ -13,6 +13,9 @@ public class Missile_Skill : Skill {
 
     public float stunDuration = 2f;
 
+    private MeshRenderer meshRenderer;
+    private Color originalColor;
+
 	public override void Init(PlayerController pc){
 		caster = pc;
         playerModel = transform.GetChild(0).gameObject;
@@ -27,8 +30,9 @@ public class Missile_Skill : Skill {
         instanceMissile.transform.localPosition = Vector3.zero;
 		instanceMissile.transform.localRotation =  Quaternion.Euler(Vector3.zero);
 
-        //InvokeRepeating("SpeedUp", 1f, 1f);
-	}
+        meshRenderer = instanceMissile.transform.GetChild(0).GetComponent<MeshRenderer>();
+        originalColor = meshRenderer.material.color;
+    }
 
     private void SpeedUp()
     {
@@ -48,7 +52,14 @@ public class Missile_Skill : Skill {
 		instanceMissile.SetActive(true);
         AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("missileLaunch"), caster.audioSource);
         AudioManager.singleton.PlayLoop(AudioManager.singleton.GetSFXclip("missileLoop"), caster.audioSource);
-	}
+        
+        InvokeRepeating("SpeedUp", 1f, 1f);
+
+        meshRenderer.material.color = originalColor;
+
+        Invoke("Blink", 6f);
+        Invoke("StopMissile", 10f);
+    }
 
 	void ShowPlayer(bool value){
 		PlayerCollider.enabled = value;
@@ -80,8 +91,11 @@ public class Missile_Skill : Skill {
             SpawnExplosion();
             AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("missileBoom"), caster.audioSource);
 
+            CancelInvoke("Blink");
+            CancelInvoke("StopMissile");
+
             Destroy(this);
-		}
+        }
 
         else if(isActive) {
 			ShowPlayer(true);
@@ -92,8 +106,28 @@ public class Missile_Skill : Skill {
             SpawnExplosion();
             AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("missileBoom"), caster.audioSource);
             End();
+
+            CancelInvoke("Blink");
+            CancelInvoke("StopMissile");
         }
 	}
+
+    private void Blink()
+    {
+        meshRenderer.material.DOColor(Color.red, 4f);
+    }
+
+    private void StopMissile()
+    {
+        ShowPlayer(true);
+        instanceMissile.SetActive(false);
+
+        RestoreSpeed();
+
+        SpawnExplosion();
+        AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("missileBoom"), caster.audioSource);
+        End();
+    }
 
     private void RestoreSpeed()
     {

@@ -108,6 +108,8 @@ public class GameManager : MonoBehaviour {
     {
         uiMgr.EnableCountDown(true);
 
+        AudioManager.singleton.PlayMusic(AudioManager.singleton.FightMusic);
+
         for (int i = 3; i > 0; i--)
         {
             uiMgr.UpdateCountDown(i.ToString());
@@ -118,12 +120,13 @@ public class GameManager : MonoBehaviour {
         uiMgr.UpdateCountDown("FIGHT !");
         AudioManager.singleton.PlaySFX(AudioManager.singleton.GetSFXclip("GO"));
 
+       
+
         yield return new WaitForSeconds(0.25f);
 
         uiMgr.EnableCountDown(false);
 
         gameState = GameStates.FIGHT;
-        AudioManager.singleton.PlayMusic(AudioManager.singleton.FightMusic);
     }
 
     public void ResetGame()
@@ -146,6 +149,8 @@ public class GameManager : MonoBehaviour {
     {
         AudioManager.singleton.StopMusic();
         AudioManager.singleton.PlaySFX(AudioManager.singleton.GetSFXclip("EndGame"));
+        
+        AudioManager.singleton.PlayMusic(AudioManager.singleton.MenuMusic);
         gameState = GameStates.END;
 
         uiMgr.DisplayEndPanel(winnerIndex);

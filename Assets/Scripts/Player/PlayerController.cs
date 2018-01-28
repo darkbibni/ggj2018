@@ -283,6 +283,8 @@ public class PlayerController : MonoBehaviour {
 
                 break;
         }
+
+        UpdateHighlight();
     }
 
     public void TransmitToEnemy(List<Skill> skills, SkillButton sb, PlayerController pc)
@@ -338,7 +340,14 @@ public class PlayerController : MonoBehaviour {
         GameObject transmition = Instantiate(GameManager.instance.transfertPrefabs[(int)sb]);
         Destroy(transmition.GetComponent<Collider>());
 
-        if(IsEmpty && !isHighligted)
+        UpdateHighlight();
+
+        StartCoroutine(TransmitCoroutine(transform.position, pc.transform, transmition, durationOfTransmition));
+    }
+
+    private void UpdateHighlight()
+    {
+        if (IsEmpty && !isHighligted)
         {
             AudioManager.singleton.PlaySFX(AudioManager.singleton.GetSFXclip("NoMoreSkills"));
             GameManager.instance.arenaMgr.exitMgr.HighlightExit(playerId, true);
@@ -347,15 +356,14 @@ public class PlayerController : MonoBehaviour {
             isHighligted = true;
         }
 
-        else if(!IsEmpty && isHighligted)
+        else if (!IsEmpty && isHighligted)
         {
             GameManager.instance.arenaMgr.exitMgr.HighlightExit(playerId, false);
             GameManager.instance.uiMgr.playerSkillAnims[playerId].SetBool("HasNoAbilities", false);
             highlightVfx.SetActive(false);
+
             isHighligted = false;
         }
-
-        StartCoroutine(TransmitCoroutine(transform.position, pc.transform, transmition, durationOfTransmition));
     }
 
     IEnumerator TransmitCoroutine(Vector3 from, Transform to, GameObject obj, float duration)
