@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4454457262017088
 Transform:
   m_ObjectHideFlags: 1
@@ -68,7 +68,11 @@ MonoBehaviour:
   - {r: 0.14051686, g: 0.31667897, b: 0.8308824, a: 1}
   - {r: 0.18977076, g: 0.66176474, b: 0.2516182, a: 1}
   - {r: 0.7775885, g: 0.78676474, b: 0.121485755, a: 1}
-  transfertPrefabs: []
+  transfertPrefabs:
+  - {fileID: 1995597549575098, guid: f1d8fe47b61be4647ae3dd52dc60c496, type: 2}
+  - {fileID: 1800042490375132, guid: be5e8cb80a43b114fbe541e74d9978dc, type: 2}
+  - {fileID: 1240115966692390, guid: 0072b28b06c4ea644a5fb7f3188e5fbc, type: 2}
+  - {fileID: 1995597549575098, guid: f1d8fe47b61be4647ae3dd52dc60c496, type: 2}
   curve:
     serializedVersion: 2
     m_Curve: []

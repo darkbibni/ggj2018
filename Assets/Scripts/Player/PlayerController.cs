@@ -329,7 +329,7 @@ public class PlayerController : MonoBehaviour {
                 break;
         }
 
-        GameObject transmition = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        GameObject transmition = Instantiate(GameManager.instance.transfertPrefabs[(int)sb]);
         Destroy(transmition.GetComponent<Collider>());
 
         if(IsEmpty && !isHighligted)

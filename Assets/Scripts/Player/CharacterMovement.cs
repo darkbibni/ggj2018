@@ -53,7 +53,11 @@ public class CharacterMovement : MonoBehaviour {
             Vector3 target = _rb.position + transform.forward * DashLength;
             RaycastHit hit = new RaycastHit();
             if(Physics.Raycast(transform.position, transform.forward, out hit, DashLength)){
-                target = Vector3.Lerp(transform.position, hit.point, 0.75f);
+
+                if(!hit.collider.CompareTag("Exit"))
+                {
+                    target = Vector3.Lerp(transform.position, hit.point, 0.75f);
+                }
             }
             
             _collider.enabled = false;

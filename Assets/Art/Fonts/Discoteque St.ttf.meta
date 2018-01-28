@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 05cabc7dd58aa0b4bbedd213a0707c06
+timeCreated: 1517137143
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Discoteque St
+  fontNames:
+  - Discoteque St
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

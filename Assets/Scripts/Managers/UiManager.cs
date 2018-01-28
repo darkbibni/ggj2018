@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Rewired;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UiManager : MonoBehaviour {
     
@@ -18,7 +19,7 @@ public class UiManager : MonoBehaviour {
     public string joinText = "to join";
 
     public GameObject countdownPanel;
-    public Text countdownValue;
+    public TextMeshProUGUI countdownValue;
 
     [Header("Fight UI")]
     public GameObject fightPanel;
