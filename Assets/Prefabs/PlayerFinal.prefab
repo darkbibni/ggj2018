@@ -463,7 +463,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -601,6 +601,7 @@ MonoBehaviour:
   DashLength: 8
   DashTime: 0.2
   maxSpeed: 4
+  canMove: 1
   StunBall: {fileID: 1680234757912230}
   DashParticles: {fileID: 198012042149965590}
 --- !u!114 &114960375399381144

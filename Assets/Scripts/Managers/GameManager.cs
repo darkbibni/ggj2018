@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour {
     public GameObject[] transfertPrefabs;
     public AnimationCurve curve;
 
+    private bool isStarting;
+
     private void Awake()
     {
         if(instance == null)
@@ -74,8 +76,10 @@ public class GameManager : MonoBehaviour {
     
     public bool StartFight()
     {
-        if(arenaMgr.CanStartFight)
+        if(arenaMgr.CanStartFight && !isStarting)
         {
+            isStarting = true;
+
             StartCoroutine(CountDown());
 
             arenaMgr.SetupSpawns();
@@ -112,6 +116,8 @@ public class GameManager : MonoBehaviour {
     public void ResetGame()
     {
         gameState = GameStates.SETUP;
+
+        isStarting = false;
         arenaMgr.ResetArena();
 
         uiMgr.ResetUI();

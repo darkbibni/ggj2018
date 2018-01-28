@@ -16,31 +16,27 @@ public class SkillsUI : MonoBehaviour {
     public Image[] nextSkillImgs;
 
     public Tween[] cooldownTweens;
-    public bool[] noSkills;
-
-    private void Awake()
-    {
-        cooldownTweens = new Tween[4];
-        noSkills = new bool[4];
-
-        ResetSkillUi();
-    }
-
+    private bool[] skillsEnabled;
+    
     public void ResetSkillUi()
     {
-        foreach(Image img in currentSkillImgs)
+        cooldownTweens = new Tween[4];
+        skillsEnabled = new bool[4];
+
+        foreach (Image img in currentSkillImgs)
         {
             img.fillAmount = 1f;
         }
-        for (int i = 0; i < noSkills.Length; i++)
+
+        for (int i = 0; i < skillsEnabled.Length; i++)
         {
-            noSkills[i] = false;
+            skillsEnabled[i] = true;
         }
     }
 
     private void Reset()
     {
-        Transform inputsParent = transform.GetChild(2);
+        Transform inputsParent = transform.GetChild(1);
 
         int actualChild = 0;
         inputs = new GameObject[inputsParent.childCount];
@@ -88,15 +84,15 @@ public class SkillsUI : MonoBehaviour {
         currentSkillImgs[inputId].fillAmount = 0f;
 
         cooldownTweens[inputId] = currentSkillImgs[inputId].DOFillAmount(1f, cooldown).SetEase(Ease.Linear).OnComplete(() => {
-            currentSkillImgs[inputId].fillAmount = noSkills[inputId] ? 0f : 1f;
+            currentSkillImgs[inputId].fillAmount = skillsEnabled[inputId] ? 1f : 0f;
         });
     }
 
     public void UpdateCurrentAndNext(int skillId, bool currentEnable, bool nextEnable)
     {
-        if(noSkills.Length > 0)
+        if(skillsEnabled.Length > 0)
         {
-            noSkills[skillId] = !currentEnable;
+            skillsEnabled[skillId] = currentEnable;
         }
 
         currentSkillImgs[skillId].material.SetFloat("_Offset", currentEnable ? 0f : 1f);
