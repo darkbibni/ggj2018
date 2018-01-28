@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4454457262017088
 Transform:
   m_ObjectHideFlags: 1
@@ -54,7 +54,7 @@ MonoBehaviour:
   arenaMgr: {fileID: 0}
   uiMgr: {fileID: 0}
   characterPrefabs:
-  - {fileID: 1007969554363460, guid: 63bc39376cceb58479d473b40c332106, type: 2}
+  - {fileID: 1813412126116524, guid: 665a3583b95798d47b556f83c87dcf23, type: 2}
   - {fileID: 1483465533515002, guid: 8dee4e269914851489edebaa7cb7de3f, type: 2}
   - {fileID: 1030187297723620, guid: ae2c9f753985a25469ff945d70cf7feb, type: 2}
   - {fileID: 1773623454363106, guid: cb8512aafc0d63343bb06554c9b34e28, type: 2}
@@ -69,10 +69,10 @@ MonoBehaviour:
   - {r: 0.18977076, g: 0.66176474, b: 0.2516182, a: 1}
   - {r: 0.7775885, g: 0.78676474, b: 0.121485755, a: 1}
   transfertPrefabs:
-  - {fileID: 1995597549575098, guid: f1d8fe47b61be4647ae3dd52dc60c496, type: 2}
-  - {fileID: 1800042490375132, guid: be5e8cb80a43b114fbe541e74d9978dc, type: 2}
   - {fileID: 1240115966692390, guid: 0072b28b06c4ea644a5fb7f3188e5fbc, type: 2}
   - {fileID: 1995597549575098, guid: f1d8fe47b61be4647ae3dd52dc60c496, type: 2}
+  - {fileID: 1800042490375132, guid: be5e8cb80a43b114fbe541e74d9978dc, type: 2}
+  - {fileID: 1690319430050644, guid: 064b834704f23444f827a8be1da460b3, type: 2}
   curve:
     serializedVersion: 2
     m_Curve: []
