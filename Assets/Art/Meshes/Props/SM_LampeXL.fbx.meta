@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b56860a35b5f68a4bbc11b70ef960a42
+guid: 5f6961249d4d1054aaacb8acbab71716
 timeCreated: 1517107239
 licenseType: Free
 ModelImporter:
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: LampeXLL
+    4300000: LampeXL
   externalObjects:
   - first:
       type: UnityEngine:Material
