@@ -1,28 +1,33 @@
 fileFormatVersion: 2
-guid: bfa00db11af6d6a43a8b5cd036e04b49
-timeCreated: 1517079618
+guid: 80cdf54a2ffab614484319417fcf1fb6
+timeCreated: 1517143226
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Plane.003
+    100000: Plane.002
     100002: //RootNode
     100004: Sphere.008
-    400000: Plane.003
+    400000: Plane.002
     400002: //RootNode
     400004: Sphere.008
-    2300000: Plane.003
+    2300000: Plane.002
     2300002: Sphere.008
-    3300000: Plane.003
+    3300000: Plane.002
     3300002: Sphere.008
-    4300000: Plane.003
+    4300000: Plane.002
     4300002: Sphere.008
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: c6a2630e27743dc48a8495f3e8539f29, type: 2}
+      name: Mustache
+    second: {fileID: 2100000, guid: 15ca3d963b58ac540941e148e92a9a6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cap
+    second: {fileID: 2100000, guid: 0f42301e52c31dd4d8b688245dfad519, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
