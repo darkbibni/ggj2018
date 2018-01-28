@@ -10,10 +10,10 @@ public class SkillsUI : MonoBehaviour {
 
     public GameObject[] currentSkill;
     public GameObject[] currentSkillBg;
-    public GameObject[] nextSkill;
+    //public GameObject[] nextSkill;
 
     public Image[] currentSkillImgs;
-    public Image[] nextSkillImgs;
+    // public Image[] nextSkillImgs;
 
     public Tween[] cooldownTweens;
     private bool[] skillsEnabled;
@@ -49,17 +49,17 @@ public class SkillsUI : MonoBehaviour {
         currentSkill = new GameObject[4];
         currentSkillBg = new GameObject[4];
         currentSkillImgs = new Image[4];
-        nextSkill = new GameObject[4];
-        nextSkillImgs = new Image[4];
+        //nextSkill = new GameObject[4];
+        //nextSkillImgs = new Image[4];
 
         //otherSkills = new GameObject[4, 3];
         for (int i = 0; i < inputs.Length; i++)
         {
-            currentSkill[i] = inputs[i].transform.GetChild(2).gameObject;
-            currentSkillBg[i] = inputs[i].transform.GetChild(1).gameObject;
+            currentSkill[i] = inputs[i].transform.GetChild(1).gameObject;
+            currentSkillBg[i] = inputs[i].transform.GetChild(0).gameObject;
             currentSkillImgs[i] = currentSkill[i].GetComponent<Image>();
-            nextSkill[i] = inputs[i].transform.GetChild(0).gameObject;
-            nextSkillImgs[i] = nextSkill[i].GetComponent<Image>();
+            //nextSkill[i] = inputs[i].transform.GetChild(0).gameObject;
+            //nextSkillImgs[i] = nextSkill[i].GetComponent<Image>();
         }
     }
 
@@ -96,12 +96,12 @@ public class SkillsUI : MonoBehaviour {
         }
 
         currentSkillImgs[skillId].material.SetFloat("_Offset", currentEnable ? 0f : 1f);
-        nextSkillImgs[skillId].material.SetFloat("_Offset", nextEnable ? 0f : 1f);
+        //nextSkillImgs[skillId].material.SetFloat("_Offset", nextEnable ? 0f : 1f);
     }
 
     public void UpdateCurrentAndNext(int inputId, Sprite current, Sprite next)
     {
         currentSkillImgs[inputId].sprite = current;
-        nextSkillImgs[inputId].sprite = next;
+        //nextSkillImgs[inputId].sprite = next;
     }
 }
