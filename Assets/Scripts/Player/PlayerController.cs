@@ -193,11 +193,14 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        if (!SkillMove.IsStun() && _player.GetButtonDown("Dash") && !inCooldownDash)
+        if(!isHighligted)
         {
-            SkillMove.Dash();
-            inCooldownDash = true;
-            Invoke("CooldownDashFinished", dashCooldown);
+            if (!SkillMove.IsStun() && _player.GetButtonDown("Dash") && !inCooldownDash)
+            {
+                SkillMove.Dash();
+                inCooldownDash = true;
+                Invoke("CooldownDashFinished", dashCooldown);
+            }
         }
     }
 
