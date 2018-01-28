@@ -9,6 +9,8 @@ public class ArenaManager : MonoBehaviour
     public GameObject SpawnPrefab;
     public GameObject characterPrefab;
 
+    public ExitBehaviour exitMgr;
+
     private List<int> playersIndex = new List<int>();
     public bool CanStartFight
     {

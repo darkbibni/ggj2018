@@ -7,6 +7,7 @@ public class Gun_Data : ScriptableObject
 {
     public Sprite sprite;
     public GameObject Gun_ProjectilePrefab;
+    public GameObject shootVfx;
     public float speed;
     public SkillButton eButton = SkillButton.X;
 }

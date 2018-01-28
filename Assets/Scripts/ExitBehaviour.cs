@@ -4,6 +4,8 @@ public class ExitBehaviour : MonoBehaviour {
 
     public ArenaManager arenaMgr;
 
+    public GameObject[] highlights;
+
     private void OnTriggerEnter(Collider other)
     {
         PlayerController player = other.GetComponent<PlayerController>();
@@ -16,5 +18,10 @@ public class ExitBehaviour : MonoBehaviour {
                 arenaMgr.TriggerWin(player.playerId);
             }
         }
+    }
+
+    public void HighlightExit(int playerId, bool highlighted)
+    {
+        highlights[playerId].SetActive(highlighted);
     }
 }

@@ -113,5 +113,6 @@ MonoBehaviour:
   charactersParent: {fileID: 4637406883229360}
   SpawnPrefab: {fileID: 1399254462098766, guid: b84d0097dbe1ceb4099bd33526431ec1,
     type: 2}
-  characterPrefab: {fileID: 1030711296124664, guid: 87812887c3d64804786ee5efd26919b0,
+  characterPrefab: {fileID: 1656272016558584, guid: 6c467796908b0b5428313b478ca4ff05,
     type: 2}
+  exitMgr: {fileID: 0}

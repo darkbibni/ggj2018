@@ -58,14 +58,18 @@ MonoBehaviour:
   skillsA:
   - {fileID: 114141749165981406, guid: 918ba62f95f3f0a4f995e2a663cc301b, type: 2}
   - {fileID: 114141749165981406, guid: 918ba62f95f3f0a4f995e2a663cc301b, type: 2}
-  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
-  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
+  - {fileID: 114141749165981406, guid: 918ba62f95f3f0a4f995e2a663cc301b, type: 2}
+  - {fileID: 114141749165981406, guid: 918ba62f95f3f0a4f995e2a663cc301b, type: 2}
   skillsX:
   - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
   - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
   - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
   - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
-  skillsB: []
+  skillsB:
+  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
+  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
+  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
+  - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
   skillsY:
   - {fileID: 114107670913700000, guid: 267bc83095ad6d743a18dcd22f8f022a, type: 2}
   - {fileID: 114107670913700000, guid: 267bc83095ad6d743a18dcd22f8f022a, type: 2}

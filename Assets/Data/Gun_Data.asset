@@ -14,6 +14,6 @@ MonoBehaviour:
   sprite: {fileID: 0}
   Gun_ProjectilePrefab: {fileID: 1233574093258004, guid: 2d259066daab1134f8727b0a7621fd57,
     type: 2}
+  shootVfx: {fileID: 1677179281475946, guid: 8a30f9535a05d5d4893916d8abc4235c, type: 2}
   speed: 1000
-  cooldown: 2
   eButton: 3

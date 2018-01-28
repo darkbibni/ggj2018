@@ -9,18 +9,29 @@ public class Missile_Skill : Skill {
 	GameObject instanceMissile;
 	GameObject playerModel;
 	Collider PlayerCollider;
+    GameObject explosionVfx;
 
 	public override void Init(PlayerController pc){
 		caster = pc;
         playerModel = transform.GetChild(0).gameObject;
 		PlayerCollider = GetComponent<Collider>();
+
 		data = SkillManager.instance.missile_data;
 		eButton = data.eButton;
-		instanceMissile = Instantiate(data.MissileGameObject);
+        explosionVfx = data.explosionVfx;
+
+        instanceMissile = Instantiate(data.MissileGameObject);
 		instanceMissile.transform.parent = transform;
         instanceMissile.transform.localPosition = Vector3.zero;
 		instanceMissile.transform.localRotation =  Quaternion.Euler(Vector3.zero);
+
+        //InvokeRepeating("SpeedUp", 1f, 1f);
 	}
+
+    private void SpeedUp()
+    {
+        caster.SkillMove.SpeedMultiplicator += 0.25f;
+    }
 
 	public override void Execute(List<Skill> _skillsToRemove)
     {
@@ -45,26 +56,49 @@ public class Missile_Skill : Skill {
 	{
         if(other.tag == "Ground" || other.tag == "Exit")
         {
-            End();
             return;
         }
 
-		if(gameObject.activeSelf && other.tag == "Player" && other.transform != transform && !isTransmitted){
+		if(isActive && other.tag == "Player" && other.transform != transform && !isTransmitted){
 			isTransmitted = true;
+
 			ShowPlayer(true);
 			instanceMissile.SetActive(false);
+
 			PlayerController enemy = other.GetComponent<PlayerController>();
             enemy.SkillMove.Stun(2.0f);
             caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
+
+            RestoreSpeed();
+
+            SpawnExplosion();
+
             Destroy(this);
 		}
 
-        else {
+        else if(isActive) {
 			ShowPlayer(true);
 			instanceMissile.SetActive(false);
+
+            RestoreSpeed();
+
+            SpawnExplosion();
+
             End();
         }
 	}
+
+    private void RestoreSpeed()
+    {
+        CancelInvoke("SpeedUp");
+        caster.SkillMove.SpeedMultiplicator = 1f;
+    }
+
+    private void SpawnExplosion()
+    {
+        GameObject vfx = Instantiate(explosionVfx, transform.position, explosionVfx.transform.rotation);
+        Destroy(vfx, 5f);
+    }
 
 	void OnDestroy()
 	{

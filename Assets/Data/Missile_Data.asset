@@ -11,7 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64658d4d8755be940a2df84948144a8d, type: 3}
   m_Name: Missile_Data
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
   MissileGameObject: {fileID: 1240767685143214, guid: 20ce7f38041009641b3d6fa76df510a6,
+    type: 2}
+  explosionVfx: {fileID: 1036178663467540, guid: cdc636334cd9a90448f9259eecd6023f,
     type: 2}
   MoveSpeed: 50
   AngleSpeed: 25

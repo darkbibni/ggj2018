@@ -111,6 +111,10 @@ public class GameManager : MonoBehaviour {
         uiMgr.ResetUI();
         uiMgr.DisplaySetupPanel();
 
+        foreach(GameObject highlight in arenaMgr.exitMgr.highlights)
+        {
+            highlight.SetActive(false);
+        }
     }
 
     public void StopFight(int winnerIndex)

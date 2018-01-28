@@ -8,6 +8,15 @@ public class CharacterMovement : MonoBehaviour {
     public float MoveSpeed = 1f;
     public float DashLength = 3f;
     public float DashTime = 0.2f;
+
+    public float maxSpeed = 4f;
+
+    public float SpeedMultiplicator
+    {
+        get { return speedMultiplicator; }
+        set { speedMultiplicator = Mathf.Min(value, maxSpeed); }
+    }
+    private float speedMultiplicator = 1f;
     
     public GameObject StunBall;
     public ParticleSystem DashParticles;
@@ -18,8 +27,6 @@ public class CharacterMovement : MonoBehaviour {
     private bool isDashing = false;
     private bool isStun = false;
 
-    private bool isMissile = false;
-
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -28,8 +35,9 @@ public class CharacterMovement : MonoBehaviour {
     }
 
     public void Move(float x, float y){
+        
         if(!isStun){
-            _rb.MovePosition(_rb.position + (x * Vector3.right * MoveSpeed/1000f) + (y * Vector3.forward * MoveSpeed/1000f));
+            _rb.MovePosition(_rb.position + ((x * Vector3.right) + (y * Vector3.forward)) * MoveSpeed * speedMultiplicator * Time.deltaTime/20f);
             _rb.MoveRotation(Quaternion.LookRotation(new Vector3(x, 0f, y)));
         }
 

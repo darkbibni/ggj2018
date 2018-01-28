@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private bool isHighligted;
+
     void Awake()
     {
         SkillMove = GetComponent<CharacterMovement>();
@@ -325,6 +327,18 @@ public class PlayerController : MonoBehaviour {
 
         GameObject transmition = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         Destroy(transmition.GetComponent<Collider>());
+
+        if(IsEmpty)
+        {
+            GameManager.instance.arenaMgr.exitMgr.HighlightExit(playerId, true);
+            isHighligted = true;
+        }
+
+        else if(!IsEmpty && isHighligted)
+        {
+            GameManager.instance.arenaMgr.exitMgr.HighlightExit(playerId, false);
+            isHighligted = true;
+        }
 
         StartCoroutine(TransmitCoroutine(transform.position, pc.transform, transmition, durationOfTransmition));
     }

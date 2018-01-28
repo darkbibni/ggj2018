@@ -11,7 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4357d30d940a6524589c78685630188e, type: 3}
   m_Name: Stomp_Data
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
   StompGameObject: {fileID: 1127917411917138, guid: 2c5a3181944632345aab1b0e93e060ca,
     type: 2}
+  StompVfx: {fileID: 1250012404737758, guid: abf1697d83574d847a5d48d0b5ad8931, type: 2}
   HitSpeed: 0.2
-  eButton: 2
+  eButton: 1
