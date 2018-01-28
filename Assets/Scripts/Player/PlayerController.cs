@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     public Transform modelTransform;
 
     public List<GameObject> TrailList = new List<GameObject>();
+    public AudioSource audioSource;
     
     public float cooldownA = 1;
     public float cooldownB = 1;
@@ -60,6 +61,8 @@ public class PlayerController : MonoBehaviour {
         {
             _player = ReInput.players.GetPlayer(playerId);
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void ShowTrails(bool value){
@@ -334,6 +337,7 @@ public class PlayerController : MonoBehaviour {
 
         if(IsEmpty && !isHighligted)
         {
+            AudioManager.singleton.PlaySFX(AudioManager.singleton.GetSFXclip("NoMoreSkills"));
             GameManager.instance.arenaMgr.exitMgr.HighlightExit(playerId, true);
             GameManager.instance.uiMgr.playerSkillAnims[playerId].SetBool("HasNoAbilities", true);
             highlightVfx.SetActive(true);
