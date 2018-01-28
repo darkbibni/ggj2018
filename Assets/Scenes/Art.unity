@@ -219,6 +219,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 5f6961249d4d1054aaacb8acbab71716, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d8d13d6de1805f45abd49063c40f8e4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f6961249d4d1054aaacb8acbab71716, type: 3}
   m_IsPrefabParent: 0
@@ -1261,7 +1265,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 410166055}
---- !u!1001 &518417120
+--- !u!1001 &417314733
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -3260,6 +3264,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 89.997
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 53c555c772f877242bf2ff172612fbae, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95eca1938b326004881fb3a8291abc07, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 53c555c772f877242bf2ff172612fbae, type: 3}
   m_IsPrefabParent: 0
