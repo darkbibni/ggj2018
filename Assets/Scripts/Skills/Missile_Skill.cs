@@ -46,6 +46,8 @@ public class Missile_Skill : Skill {
 
 		ShowPlayer(false);
 		instanceMissile.SetActive(true);
+        AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("missileLaunch"), caster.audioSource);
+        AudioManager.singleton.PlayLoop(AudioManager.singleton.GetSFXclip("missileLoop"), caster.audioSource);
 	}
 
 	void ShowPlayer(bool value){
@@ -76,6 +78,7 @@ public class Missile_Skill : Skill {
             RestoreSpeed();
 
             SpawnExplosion();
+            AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("missileBoom"), caster.audioSource);
 
             Destroy(this);
 		}
@@ -87,7 +90,7 @@ public class Missile_Skill : Skill {
             RestoreSpeed();
 
             SpawnExplosion();
-
+            AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("missileBoom"), caster.audioSource);
             End();
         }
 	}

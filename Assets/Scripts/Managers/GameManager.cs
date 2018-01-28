@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public enum GameStates
 {
@@ -50,8 +51,14 @@ public class GameManager : MonoBehaviour {
         ResetGame();
     }
 
+    void Start()
+    {
+        AudioManager.singleton.PlayMusic(AudioManager.singleton.MenuMusic);
+    }
+
     public bool JoinFight(int playerIndex) {
         
+        AudioManager.singleton.PlaySFX(AudioManager.singleton.GetSFXclip("Beep"));
         bool join = arenaMgr.AddPlayer(playerIndex);
 
         if(join)
@@ -64,6 +71,7 @@ public class GameManager : MonoBehaviour {
 
     public bool QuitFight(int playerIndex)
     {
+        AudioManager.singleton.PlayRandomize(AudioManager.singleton.GetSFXclip("Beep"));
         bool quit = arenaMgr.RemovePlayer(playerIndex);
 
         if (quit)
@@ -79,6 +87,8 @@ public class GameManager : MonoBehaviour {
         if(arenaMgr.CanStartFight && !isStarting)
         {
             isStarting = true;
+            AudioManager.singleton.StopMusic();
+            AudioManager.singleton.mixer.DOSetFloat("HighPass_Music", 0f, 0.8f);
 
             StartCoroutine(CountDown());
 
@@ -101,16 +111,19 @@ public class GameManager : MonoBehaviour {
         for (int i = 3; i > 0; i--)
         {
             uiMgr.UpdateCountDown(i.ToString());
+            AudioManager.singleton.PlaySFX(AudioManager.singleton.countdown[i-1]);
             yield return new WaitForSeconds(0.33f);
         }
 
         uiMgr.UpdateCountDown("FIGHT !");
+        AudioManager.singleton.PlaySFX(AudioManager.singleton.GetSFXclip("GO"));
 
         yield return new WaitForSeconds(0.25f);
 
         uiMgr.EnableCountDown(false);
 
         gameState = GameStates.FIGHT;
+        AudioManager.singleton.PlayMusic(AudioManager.singleton.FightMusic);
     }
 
     public void ResetGame()
@@ -131,6 +144,8 @@ public class GameManager : MonoBehaviour {
 
     public void StopFight(int winnerIndex)
     {
+        AudioManager.singleton.StopMusic();
+        AudioManager.singleton.PlaySFX(AudioManager.singleton.GetSFXclip("EndGame"));
         gameState = GameStates.END;
 
         uiMgr.DisplayEndPanel(winnerIndex);

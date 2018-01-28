@@ -29,6 +29,7 @@ public class Slash_Skill : Skill {
 
 		instanceSlash.transform.localRotation = Quaternion.Euler(0f, (data.Amplitude/2), 0f);
 		instanceSlash.SetActive(true);
+        AudioManager.singleton.PlayRandomize(AudioManager.singleton.GetSFXclip("Sword"), caster.audioSource);
 		instanceSlash.transform.DOLocalRotate(new Vector3(0f, -(data.Amplitude/2f), 0f), data.HitSpeed).OnComplete(()=>{
 			instanceSlash.SetActive(false);
             End();

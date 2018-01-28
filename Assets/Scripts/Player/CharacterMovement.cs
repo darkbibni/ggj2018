@@ -24,16 +24,19 @@ public class CharacterMovement : MonoBehaviour {
     public ParticleSystem DashParticles;
     private Rigidbody _rb;
     private Collider _collider;
+    private AudioSource _src;
     private ParticleSystem.EmissionModule _emission;
 
     private bool isDashing = false;
     private bool isStun = false;
+
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         _emission = DashParticles.emission;
+        _src = GetComponent<AudioSource>();
     }
 
     public void Move(float x, float y){
@@ -59,6 +62,7 @@ public class CharacterMovement : MonoBehaviour {
             _collider.enabled = false;
             var col = DashParticles.colorOverLifetime.color;
             col.colorMin = Color.red;
+            AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("Dash"), _src);
             _rb.DOMove(target, DashTime).OnComplete(()=>{
                 isDashing = false;
                 _collider.enabled = true;
@@ -85,9 +89,11 @@ public class CharacterMovement : MonoBehaviour {
     }
 
     IEnumerator StunCoroutine (float duration){
+        AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("Stun"), _src);
         StunBall.SetActive(true);
         yield return new WaitForSeconds(duration);
         StunBall.SetActive(false);
+        _src.Stop();
         isStun = false;
     }
 

@@ -35,6 +35,7 @@ public class Stomp_Skill : Skill {
 		instanceStomp.transform.localRotation = Quaternion.Euler(-20f, 0f, 0f);
 		instanceStomp.SetActive(true);
 		instanceStomp.transform.DOLocalRotate(new Vector3(90f, 0f, 0f), data.HitSpeed).OnComplete(()=>{
+            AudioManager.singleton.PlayAt(AudioManager.singleton.GetSFXclip("Hammer"), caster.audioSource);
 			instanceStomp.SetActive(false);
             SpawnHammerEffect(transform.position + transform.forward * 2f);
             End();

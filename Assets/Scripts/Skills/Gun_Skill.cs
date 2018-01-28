@@ -17,7 +17,7 @@ public class Gun_Skill : Skill
         }
 
         base.Execute(_skillsToRemove);
-
+        caster.audioSource.PlayOneShot(AudioManager.singleton.GetSFXclip("GunShot"));
         bullet = Instantiate(data.Gun_ProjectilePrefab);
         bullet.transform.position = transform.position;
         bullet.transform.eulerAngles = new Vector3(90, transform.eulerAngles.y, 0);
