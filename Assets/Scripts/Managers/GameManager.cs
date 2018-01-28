@@ -24,6 +24,12 @@ public class GameManager : MonoBehaviour {
 
     [Header("Characters")]
     public GameObject[] characterPrefabs;
+    public GameObject[] highlightVfx;
+    public Color[] playerColors;
+
+    [Header("Transfert")]
+    public GameObject[] transfertPrefabs;
+    public AnimationCurve curve;
 
     private void Awake()
     {

@@ -9,6 +9,8 @@ public class Stomp_Skill : Skill {
 	GameObject instanceStomp;
     GameObject stompVfx;
 
+    public float stunDuration = 0.5f;
+
 	public override void Init(PlayerController pc){
 		caster = pc;
 		data = SkillManager.instance.stomp_data;
@@ -44,6 +46,7 @@ public class Stomp_Skill : Skill {
         if (isActive && other.tag == "Player" && other.transform != transform && !isTransmitted){
 			isTransmitted = true;
 			PlayerController enemy = other.GetComponent<PlayerController>();
+            enemy.SkillMove.Stun(stunDuration);
             caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
             Destroy(this);
 		}

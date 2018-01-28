@@ -112,6 +112,8 @@ public class ArenaManager : MonoBehaviour
         List<Skill> skillsB = SkillManager.instance.GenerateListOfSkills(SkillManager.instance.skillsB, spawns.Length);
         List<Skill> skillsY = SkillManager.instance.GenerateListOfSkills(SkillManager.instance.skillsY, spawns.Length);
 
+        playersIndex.Sort();
+
         for (int i = 0; i < spawns.Length; i++)
         {
             characters[i] = Instantiate(characterPrefab, spawns[i].transform.position + Vector3.up * characterPrefab.transform.position.y, Quaternion.identity, charactersParent);
@@ -120,7 +122,9 @@ public class ArenaManager : MonoBehaviour
             characters[i].transform.LookAt(Vector3.zero);
 
             PlayerController playerInput = characters[i].GetComponent<PlayerController>();
-            playerInput.SetupPlayer(i);
+
+            // Sort player by controllers.
+            playerInput.SetupPlayer(playersIndex[i]);
 
             // Add 4 skills to the character
             {

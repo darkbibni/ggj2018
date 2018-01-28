@@ -64,8 +64,8 @@ MonoBehaviour:
   skillsX:
   - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
   - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
-  - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
-  - {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5, type: 2}
+  - {fileID: 114305173502664998, guid: 210270c3d2f318c4890a7d387e6ff4fe, type: 2}
+  - {fileID: 114305173502664998, guid: 210270c3d2f318c4890a7d387e6ff4fe, type: 2}
   skillsB:
   - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}
   - {fileID: 114260114956291806, guid: e7fb8306bc74327459b66c6b252b43ff, type: 2}

@@ -20,7 +20,7 @@ public class Gun_Projectile : MonoBehaviour {
 
                 if (caster.playerId != otherPlayer.playerId)
                 {
-                    skill.EnemyTouched(otherPlayer);
+                    skill.EnemyTouched(otherPlayer, transform.up);
                     isActive = false;
                     Destroy(gameObject);
                 }

@@ -39,7 +39,12 @@ public class Slash_Skill : Skill {
 	{
 		if(isActive && other.tag == "Player" && other.transform != transform && !isTransmitted){
 			isTransmitted = true;
+
 			PlayerController enemy = other.GetComponent<PlayerController>();
+
+            // Effect on enemy
+            enemy.SkillMove.KnockBack(transform.forward, 20f);
+
             caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
             Destroy(this);
 		}

@@ -14,8 +14,8 @@ MonoBehaviour:
   sprite: {fileID: 0}
   chargeDuration: 1
   rayDuration: 0.5
-  rayColorCharging: {r: 1, g: 0.30147058, b: 0.30147058, a: 0}
-  rayColorAttacking: {r: 0.27205884, g: 0.39756614, b: 1, a: 0}
+  rayColorCharging: {r: 1, g: 0.30147058, b: 0.30147058, a: 1}
+  rayColorAttacking: {r: 0.27205884, g: 0.39756614, b: 1, a: 1}
   layerMask:
     serializedVersion: 2
     m_Bits: 768

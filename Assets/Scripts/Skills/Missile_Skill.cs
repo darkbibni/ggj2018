@@ -11,6 +11,8 @@ public class Missile_Skill : Skill {
 	Collider PlayerCollider;
     GameObject explosionVfx;
 
+    public float stunDuration = 2f;
+
 	public override void Init(PlayerController pc){
 		caster = pc;
         playerModel = transform.GetChild(0).gameObject;
@@ -66,7 +68,9 @@ public class Missile_Skill : Skill {
 			instanceMissile.SetActive(false);
 
 			PlayerController enemy = other.GetComponent<PlayerController>();
-            enemy.SkillMove.Stun(2.0f);
+            enemy.SkillMove.Stun(stunDuration);
+            enemy.SkillMove.KnockBack(transform.forward, 50f);
+
             caster.TransmitToEnemy(skillsToRemove, eButton, enemy);
 
             RestoreSpeed();
@@ -98,6 +102,8 @@ public class Missile_Skill : Skill {
     {
         GameObject vfx = Instantiate(explosionVfx, transform.position, explosionVfx.transform.rotation);
         Destroy(vfx, 5f);
+
+        Camera.main.DOShakePosition(0.75f, 2f, 8);
     }
 
 	void OnDestroy()

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
     public Transform modelTransform;
 
     public List<GameObject> TrailList = new List<GameObject>();
-
+    
     public float cooldownA = 1;
     public float cooldownB = 1;
     public float cooldownX = 2;
@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour {
 
     private float moveX = 0.0f;
     private float moveY = 0.0f;
+
+    private GameObject highlightVfx;
 
     public bool IsEmpty {
         get
@@ -78,6 +80,8 @@ public class PlayerController : MonoBehaviour {
         this.playerId = playerId;
         _player = ReInput.players.GetPlayer(playerId);
         Instantiate(GameManager.instance.characterPrefabs[playerId], modelTransform);
+        highlightVfx = Instantiate(GameManager.instance.highlightVfx[playerId], transform);
+        highlightVfx.SetActive(false);
     }
 
     void Update()
@@ -328,16 +332,20 @@ public class PlayerController : MonoBehaviour {
         GameObject transmition = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         Destroy(transmition.GetComponent<Collider>());
 
-        if(IsEmpty)
+        if(IsEmpty && !isHighligted)
         {
             GameManager.instance.arenaMgr.exitMgr.HighlightExit(playerId, true);
+            GameManager.instance.uiMgr.playerSkillAnims[playerId].SetBool("HasNoAbilities", true);
+            highlightVfx.SetActive(true);
             isHighligted = true;
         }
 
         else if(!IsEmpty && isHighligted)
         {
             GameManager.instance.arenaMgr.exitMgr.HighlightExit(playerId, false);
-            isHighligted = true;
+            GameManager.instance.uiMgr.playerSkillAnims[playerId].SetBool("HasNoAbilities", false);
+            highlightVfx.SetActive(false);
+            isHighligted = false;
         }
 
         StartCoroutine(TransmitCoroutine(transform.position, pc.transform, transmition, durationOfTransmition));

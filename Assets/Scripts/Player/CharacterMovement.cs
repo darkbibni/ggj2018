@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class CharacterMovement : MonoBehaviour {
 
@@ -71,6 +72,18 @@ public class CharacterMovement : MonoBehaviour {
         StartCoroutine(StunCoroutine(duration));
     }
 
+    public void KnockBack(Vector3 dir, float strength)
+    {
+        _rb.AddForce(dir * strength, ForceMode.Impulse);
+
+        Invoke("StopKnockBack", 0.2f);
+    }
+
+    private void StopKnockBack()
+    {
+        _rb.velocity = Vector3.zero;
+    }
+
     IEnumerator StunCoroutine (float duration){
         StunBall.SetActive(true);
         yield return new WaitForSeconds(duration);
@@ -81,5 +94,4 @@ public class CharacterMovement : MonoBehaviour {
     public bool IsStun(){
         return isStun;
     }
-
 }

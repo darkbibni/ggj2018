@@ -1223,6 +1223,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 114616356882733852, guid: 2cb39473134a14943b05acbc598b3ae3,
+        type: 2}
+      propertyPath: skillsX.Array.data[2]
+      value: 
+      objectReference: {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5,
+        type: 2}
+    - target: {fileID: 114616356882733852, guid: 2cb39473134a14943b05acbc598b3ae3,
+        type: 2}
+      propertyPath: skillsX.Array.data[3]
+      value: 
+      objectReference: {fileID: 114056414221031008, guid: 2a2a859e61e560b4fa02d7f1efe277e5,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2cb39473134a14943b05acbc598b3ae3, type: 2}
   m_IsPrefabParent: 0

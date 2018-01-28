@@ -24,6 +24,7 @@ public class UiManager : MonoBehaviour {
     public GameObject fightPanel;
     public GameObject[] playerInputs;
     public SkillsUI[] playerSkillsUI;
+    public Animator[] playerSkillAnims;
 
     // TODO actions for each player.
     // FEEDBACK the "UNO" player on UI
@@ -91,6 +92,8 @@ public class UiManager : MonoBehaviour {
     public void DisplayEndPanel(int winnerId)
     {
         SetCurrentPanel(endPanel);
+
+        winnerText.color = GameManager.instance.playerColors[winnerId];
 
         winnerText.text = "Player " + (winnerId+1) +" wins !";
     }

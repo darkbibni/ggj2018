@@ -8,6 +8,11 @@ public class ExitBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        if(GameManager.instance.GameState != GameStates.FIGHT)
+        {
+            return;
+        }
+
         PlayerController player = other.GetComponent<PlayerController>();
 
         // Get player and check if he has no abilities.

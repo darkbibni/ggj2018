@@ -36,8 +36,11 @@ public class Gun_Skill : Skill
         shootVfx = data.shootVfx;
     }
 
-    public void EnemyTouched(PlayerController enemy)
+    public void EnemyTouched(PlayerController enemy, Vector3 bulletDir)
     {
+        enemy.SkillMove.KnockBack(bulletDir, 10f);
+        enemy.SkillMove.Stun(0.25f);
+
         if (!isTransmitted)
         {
             isTransmitted = true;
