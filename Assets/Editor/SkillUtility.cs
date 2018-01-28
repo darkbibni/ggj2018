@@ -28,4 +28,16 @@ public class SkillUtility : MonoBehaviour {
     {
         ScriptableObjectUtility.CreateAsset<Missile_Data>();
     }
+
+    [MenuItem("Assets/Create/ScriptableObjects/DashAlea_Data")]
+    public static void CreateDashAleaDataAsset()
+    {
+        ScriptableObjectUtility.CreateAsset<DashAlea_Data>();
+    }
+
+    [MenuItem("Assets/Create/ScriptableObjects/Ray_Data")]
+    public static void CreateRayDataAsset()
+    {
+        ScriptableObjectUtility.CreateAsset<Ray_Data>();
+    }
 }

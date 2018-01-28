@@ -16,4 +16,4 @@ MonoBehaviour:
     type: 2}
   shootVfx: {fileID: 1677179281475946, guid: 8a30f9535a05d5d4893916d8abc4235c, type: 2}
   speed: 1000
-  eButton: 3
+  eButton: 0
