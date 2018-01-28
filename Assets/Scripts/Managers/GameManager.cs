@@ -108,8 +108,6 @@ public class GameManager : MonoBehaviour {
     {
         uiMgr.EnableCountDown(true);
 
-        AudioManager.singleton.PlayMusic(AudioManager.singleton.FightMusic);
-
         for (int i = 3; i > 0; i--)
         {
             uiMgr.UpdateCountDown(i.ToString());
@@ -117,10 +115,10 @@ public class GameManager : MonoBehaviour {
             yield return new WaitForSeconds(0.33f);
         }
 
+        AudioManager.singleton.PlayMusic(AudioManager.singleton.FightMusic);
+
         uiMgr.UpdateCountDown("FIGHT !");
         AudioManager.singleton.PlaySFX(AudioManager.singleton.GetSFXclip("GO"));
-
-       
 
         yield return new WaitForSeconds(0.25f);
 
