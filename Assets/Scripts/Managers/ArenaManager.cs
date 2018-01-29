@@ -94,7 +94,7 @@ public class ArenaManager : MonoBehaviour
             spawns[i] = Instantiate(SpawnPrefab, Vector3.right * -10f, SpawnPrefab.transform.rotation, spawnsParent);
             spawns[i].transform.localPosition += Vector3.up * 0.01f;
 
-            spawns[i].transform.RotateAround(Vector3.zero, Vector3.up, turnAngle * i);
+            spawns[i].transform.RotateAround(Vector3.zero, Vector3.up, -turnAngle * i);
         }
     }
    

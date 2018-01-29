@@ -57,8 +57,8 @@ public class Missile_Skill : Skill {
 
         meshRenderer.material.color = originalColor;
 
-        Invoke("Blink", 6f);
-        Invoke("StopMissile", 10f);
+        Invoke("Blink", data.missileDuration / 2);
+        Invoke("StopMissile", data.missileDuration);
     }
 
 	void ShowPlayer(bool value){
@@ -114,7 +114,7 @@ public class Missile_Skill : Skill {
 
     private void Blink()
     {
-        meshRenderer.material.DOColor(Color.red, 4f);
+        meshRenderer.material.DOColor(Color.red, data.missileDuration / 2);
     }
 
     private void StopMissile()

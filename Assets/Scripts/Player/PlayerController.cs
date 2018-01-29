@@ -261,25 +261,25 @@ public class PlayerController : MonoBehaviour {
             case SkillButton.A : 
                 SkillA.Add(sloc);
 
-                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(0, SkillA.Count > 0, SkillA.Count > 1);
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(0, true, SkillA.Count > 1);
 
                 break;
-            case SkillButton.B : 
+            case SkillButton.B :
                 SkillB.Add(sloc);
 
-                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(1, SkillB.Count > 0, SkillB.Count > 1);
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(1, true, SkillB.Count > 1);
 
                 break;
             case SkillButton.X : 
                 SkillX.Add(sloc);
 
-                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(2, SkillX.Count > 0, SkillX.Count > 1);
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(2, true, SkillX.Count > 1);
 
                 break;
             case SkillButton.Y :
                 SkillY.Add(sloc);
 
-                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(3, SkillY.Count > 0, SkillY.Count > 1);
+                GameManager.instance.uiMgr.playerSkillsUI[playerId].UpdateCurrentAndNext(3, true, SkillY.Count > 1);
 
                 break;
         }

@@ -16,6 +16,7 @@ MonoBehaviour:
     type: 2}
   explosionVfx: {fileID: 1036178663467540, guid: cdc636334cd9a90448f9259eecd6023f,
     type: 2}
+  eButton: 3
   MoveSpeed: 50
   AngleSpeed: 25
-  eButton: 3
+  missileDuration: 8

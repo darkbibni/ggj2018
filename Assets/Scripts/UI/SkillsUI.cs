@@ -31,6 +31,7 @@ public class SkillsUI : MonoBehaviour {
         for (int i = 0; i < skillsEnabled.Length; i++)
         {
             skillsEnabled[i] = true;
+            currentSkillImgs[i].material = new Material(currentSkillImgs[i].material);
         }
     }
 
@@ -83,9 +84,12 @@ public class SkillsUI : MonoBehaviour {
 
         currentSkillImgs[inputId].fillAmount = 0f;
 
-        cooldownTweens[inputId] = currentSkillImgs[inputId].DOFillAmount(1f, cooldown).SetEase(Ease.Linear).OnComplete(() => {
+        cooldownTweens[inputId] = currentSkillImgs[inputId].DOFillAmount(1f, cooldown).SetEase(Ease.Linear);
+            
+            /*.OnComplete(() => {
+            Debug.Log(skillsEnabled[inputId]);
             currentSkillImgs[inputId].fillAmount = skillsEnabled[inputId] ? 1f : 0f;
-        });
+        });*/
     }
 
     public void UpdateCurrentAndNext(int skillId, bool currentEnable, bool nextEnable)
@@ -95,7 +99,9 @@ public class SkillsUI : MonoBehaviour {
             skillsEnabled[skillId] = currentEnable;
         }
 
-        currentSkillImgs[skillId].material.SetFloat("_Offset", currentEnable ? 0f : 1f);
+        float newOffset = currentEnable ? 0f : 1f;
+
+        currentSkillImgs[skillId].material.SetFloat("_Offset", newOffset);
         //nextSkillImgs[skillId].material.SetFloat("_Offset", nextEnable ? 0f : 1f);
     }
 
@@ -103,5 +109,18 @@ public class SkillsUI : MonoBehaviour {
     {
         currentSkillImgs[inputId].sprite = current;
         //nextSkillImgs[inputId].sprite = next;
+    }
+
+    [ContextMenu("Test remove")]
+    public void TestRemove()
+    {
+        UpdateCurrentAndNext(0, false, false);
+        Debug.Log("ALLO");
+    }
+
+    [ContextMenu("Test Add")]
+    public void TestAdd()
+    {
+        UpdateCurrentAndNext(0, true, false);
     }
 }
